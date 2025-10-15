@@ -1,5 +1,5 @@
 using UnityEngine;
-using UnityEngine.InputManager;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(PlayerPaddle))]
 public class Paddle : MonoBehaviour
@@ -8,7 +8,8 @@ public class Paddle : MonoBehaviour
     public bool playerControlledPaddle;
     [Tooltip("True = Left Player, False = Right Player (Used for controls)")]
     public bool leftPlayerControls;
-    InputManager playerPaddleControls; //wtf
+    private PlayerInput playerInput;
+    private PaddleInputActions paddleInputActions;
 
     [Header("AI Controlled Paddle")]
     public bool aiControlledPaddle;
@@ -19,6 +20,11 @@ public class Paddle : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        playerInput = this.GetComponent<PlayerInput>();
+        paddleInputActions = new PaddleInputActions();
+        paddleInputActions.LeftPaddle.Enable();
+        paddleInputActions.RightPaddle.Enable();
+        
         playerPaddle = this.GetComponent<PlayerPaddle>();
 
         // check for error between bools
