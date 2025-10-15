@@ -84,7 +84,8 @@ public class Paddle : MonoBehaviour
         RepositionPaddleIfNotInBounds();
 
         float movement = speed * input * Time.deltaTime;
-        this.transform.Translate(new UnityEngine.Vector2(0, movement));
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.linearVelocity = new UnityEngine.Vector2(0, movement);
     }
 
     #region Checking Bounds
