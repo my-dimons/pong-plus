@@ -61,7 +61,11 @@ public class Paddle : MonoBehaviour
             input = rightInput;
         }
 
-        MovePaddle(paddleSpeed, input);
+        if (!(((transform.position.y + GetYScaleHalf()) >= PaddleManager.maxPaddleY) && input < 0) ||
+            !(((transform.position.y - GetYScaleHalf()) <= PaddleManager.minPaddleY) && input > 0))
+        {
+            MovePaddle(paddleSpeed, input);
+        }
     }
 
     void AIControlledPaddle()
@@ -83,6 +87,7 @@ public class Paddle : MonoBehaviour
         this.transform.Translate(new UnityEngine.Vector2(0, movement));
     }
 
+    #region Checking Bounds
     bool InArenaBounds()
     {
         if (AboveUpperBounds() || BelowLowerBounds())
@@ -98,12 +103,12 @@ public class Paddle : MonoBehaviour
 
     bool AboveUpperBounds()
     {
-        return transform.position.y + GetYScaleHalf() > PaddleManager.maxPaddleY;
+        return (transform.position.y + GetYScaleHalf()) > PaddleManager.maxPaddleY;
     }
 
     bool BelowLowerBounds()
     {
-        return transform.position.y - GetYScaleHalf() < PaddleManager.minPaddleY;
+        return (transform.position.y - GetYScaleHalf()) < -PaddleManager.minPaddleY;
     }
     
     float GetYScaleHalf()
@@ -123,8 +128,9 @@ public class Paddle : MonoBehaviour
             // lower bounds
             else if (BelowLowerBounds())
             {
-                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.minPaddleY + GetYScaleHalf());
+                transform.position = new UnityEngine.Vector2(transform.position.x, -PaddleManager.minPaddleY + GetYScaleHalf());
             }
         }
     }
+    #endregion
 }
