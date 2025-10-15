@@ -1,31 +1,30 @@
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerPaddle))]
 public class Paddle : MonoBehaviour
 {
     [Header("Player Controlled Paddle")]
     public bool playerControlledPaddle;
     [Tooltip("True = Left Player, False = Right Player (Used for controls)")]
     public bool leftPlayerControls;
-    private PlayerInput playerInput;
     private PaddleInputActions paddleInputActions;
 
     [Header("AI Controlled Paddle")]
     public bool aiControlledPaddle;
 
-    // OTHER
-    PlayerPaddle playerPaddle;
+    [Space(10)]
+    [Header("Paddle Stats")]
+    [SerializeField] private float paddleSpeed;
+    public GameObject test;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        playerInput = this.GetComponent<PlayerInput>();
         paddleInputActions = new PaddleInputActions();
         paddleInputActions.LeftPaddle.Enable();
         paddleInputActions.RightPaddle.Enable();
-        
-        playerPaddle = this.GetComponent<PlayerPaddle>();
 
         // check for error between bools
         if (playerControlledPaddle && aiControlledPaddle)
@@ -50,20 +49,82 @@ public class Paddle : MonoBehaviour
     void PlayerControlledPaddle()
     {
         float input;
+        float leftInput = paddleInputActions.LeftPaddle.Input.ReadValue<float>();
+        float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
 
         if (leftPlayerControls)
         {
-            input = 1;
+            input = leftInput;
         }
         else
         {
-            input = 1;
+            input = rightInput;
         }
 
+        MovePaddle(paddleSpeed, input);
     }
 
     void AIControlledPaddle()
     {
 
+    }
+
+
+    /// <summary>
+    /// Move the object by a speed mutliplied by input by Time.DeltaTime
+    /// </summary>
+    /// <param name="speed"></param>
+    /// <param name="input">Should be a -1 to 1 value</param>
+    void MovePaddle(float speed, float input)
+    {
+        RepositionPaddleIfNotInBounds();
+
+        float movement = speed * input * Time.deltaTime;
+        this.transform.Translate(new UnityEngine.Vector2(0, movement));
+    }
+
+    bool InArenaBounds()
+    {
+        if (AboveUpperBounds() || BelowLowerBounds())
+        {
+            Debug.Log("Player OUT OF BOUNDS!");
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    bool AboveUpperBounds()
+    {
+        return transform.position.y + GetYScaleHalf() > PaddleManager.maxPaddleY;
+    }
+
+    bool BelowLowerBounds()
+    {
+        return transform.position.y - GetYScaleHalf() < PaddleManager.minPaddleY;
+    }
+    
+    float GetYScaleHalf()
+    {
+        return transform.localScale.y / 2;
+    }
+
+    void RepositionPaddleIfNotInBounds()
+    {
+        if (!InArenaBounds())
+        {
+            // upper bounds
+            if (AboveUpperBounds())
+            {
+                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.maxPaddleY - GetYScaleHalf());
+            }
+            // lower bounds
+            else if (BelowLowerBounds())
+            {
+                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.minPaddleY + GetYScaleHalf());
+            }
+        }
     }
 }
