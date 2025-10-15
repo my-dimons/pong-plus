@@ -1,0 +1,107 @@
+{
+    "version": 1,
+    "name": "PaddleInputActions",
+    "maps": [
+        {
+            "name": "Left Paddle",
+            "id": "41c962b8-799e-4ab8-90f5-9822bc4f174f",
+            "actions": [
+                {
+                    "name": "Input",
+                    "type": "Value",
+                    "id": "98623649-594a-427e-8692-3f63ffea4834",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "02285718-7ccb-46b2-8de8-b8c3991c82a9",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Positive",
+                    "id": "58b94671-0d21-488b-9eb3-f9675936c051",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Negative",
+                    "id": "80af961c-0686-467a-9c41-2c384bcd223f",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        },
+        {
+            "name": "Right Paddle",
+            "id": "ee7ca9a4-c7e4-4f75-8f94-6c9a44022b2b",
+            "actions": [
+                {
+                    "name": "Input",
+                    "type": "Value",
+                    "id": "cfacca32-49de-443e-86bf-1a6223852ad3",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "1D Axis",
+                    "id": "67a097ef-7ba1-47dc-9d25-0ea523c3b422",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "positive",
+                    "id": "c6921aaf-af8d-4bbd-98d3-2e0a0cdd9435",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "ab9f0b14-d26e-4dd6-9aca-0e2886204e6c",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Input",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
