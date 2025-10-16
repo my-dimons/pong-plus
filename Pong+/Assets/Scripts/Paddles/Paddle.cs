@@ -27,8 +27,7 @@ public class Paddle : MonoBehaviour
         OffsetPaddle();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void FixedUpdate()
     {
         if (playerControlledPaddle)
         {

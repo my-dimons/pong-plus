@@ -533,8 +533,8 @@ Transform:
   m_GameObject: {fileID: 619147384}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.5, z: 0}
-  m_LocalScale: {x: 18, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 6.6268, z: 0}
+  m_LocalScale: {x: 21.9546, y: 3.2537, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 115982959}
@@ -837,7 +837,7 @@ MonoBehaviour:
   playerControlledPaddle: 1
   variableUseless: 0
   leftPaddle: 1
-  paddleSpeed: 100
+  paddleSpeed: 300
   test: {fileID: 0}
 --- !u!212 &1073051423
 SpriteRenderer:
@@ -1093,7 +1093,7 @@ MonoBehaviour:
   playerControlledPaddle: 1
   variableUseless: 0
   leftPaddle: 0
-  paddleSpeed: 100
+  paddleSpeed: 300
   test: {fileID: 0}
 --- !u!212 &1128438646
 SpriteRenderer:
@@ -1181,8 +1181,8 @@ Transform:
   m_GameObject: {fileID: 1182566912}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.5, z: 0}
-  m_LocalScale: {x: 18, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -6.7652, z: 0}
+  m_LocalScale: {x: 23.733002, y: 3.5304, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 115982959}
@@ -1414,8 +1414,8 @@ Transform:
   m_GameObject: {fileID: 1866162212}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 10, z: 1}
+  m_LocalPosition: {x: 9.8564, y: 0, z: 0}
+  m_LocalScale: {x: 2.3128, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 122898848}
@@ -1592,8 +1592,8 @@ Transform:
   m_GameObject: {fileID: 2024757871}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.2, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 10, z: 1}
+  m_LocalPosition: {x: -9.6102, y: 0, z: 0}
+  m_LocalScale: {x: 1.8205, y: 10, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 122898848}
