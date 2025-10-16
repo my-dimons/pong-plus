@@ -12,7 +12,7 @@ public class Paddle : MonoBehaviour
     private PaddleInputActions paddleInputActions;
 
     [Header("AI Controlled Paddle")]
-    public bool aiControlledPaddle;
+    public bool variableUseless;
 
     [Space(10)]
     [Header("Paddle Stats")]
@@ -25,12 +25,6 @@ public class Paddle : MonoBehaviour
         paddleInputActions = new PaddleInputActions();
         paddleInputActions.LeftPaddle.Enable();
         paddleInputActions.RightPaddle.Enable();
-
-        // check for error between bools
-        if (playerControlledPaddle && aiControlledPaddle)
-        {
-            Debug.LogError(this.gameObject.name + " has both playerControlledPaddle and aiControlledPaddle toggles on!");
-        }
     }
 
     // Update is called once per frame
@@ -40,7 +34,7 @@ public class Paddle : MonoBehaviour
         {
             PlayerControlledPaddle();
         }
-        else if (aiControlledPaddle)
+        else
         {
             AIControlledPaddle();
         }
@@ -61,6 +55,7 @@ public class Paddle : MonoBehaviour
             input = rightInput;
         }
 
+        // check to not take input if it goes out of bounds
         if (!(((transform.position.y + GetYScaleHalf()) >= PaddleManager.maxPaddleY) && input < 0) ||
             !(((transform.position.y - GetYScaleHalf()) <= PaddleManager.minPaddleY) && input > 0))
         {
@@ -85,6 +80,7 @@ public class Paddle : MonoBehaviour
 
         float movement = speed * input * Time.deltaTime;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
         rb.linearVelocity = new UnityEngine.Vector2(0, movement);
     }
 
@@ -97,9 +93,7 @@ public class Paddle : MonoBehaviour
             return false;
         }
         else
-        {
             return true;
-        }
     }
 
     bool AboveUpperBounds()
