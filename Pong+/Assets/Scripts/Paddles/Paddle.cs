@@ -6,7 +6,6 @@ public class Paddle : MonoBehaviour
     [Header("Player Controlled Paddle")]
     public bool playerControlledPaddle;
     [Tooltip("True = Left Player, False = Right Player (Used for controls)")]
-    public bool leftPlayerControls;
     private PaddleInputActions paddleInputActions;
 
     [Header("AI Controlled Paddle")]
@@ -14,6 +13,7 @@ public class Paddle : MonoBehaviour
 
     [Space(10)]
     [Header("Paddle Stats")]
+    public bool leftPaddle;
     [SerializeField] private float paddleSpeed;
     public GameObject test;
 
@@ -23,6 +23,8 @@ public class Paddle : MonoBehaviour
         paddleInputActions = new PaddleInputActions();
         paddleInputActions.LeftPaddle.Enable();
         paddleInputActions.RightPaddle.Enable();
+
+        OffsetPaddle();
     }
 
     // Update is called once per frame
@@ -38,6 +40,17 @@ public class Paddle : MonoBehaviour
         }
     }
 
+    public void OffsetPaddle()
+    {
+        if (leftPaddle)
+        {
+            transform.position = new Vector2(PaddleManager.paddleXOffset, 0);
+        } else
+        {
+            transform.position = new Vector2(-PaddleManager.paddleXOffset, 0);
+        }
+    }
+
     #region Player Controls
     void PlayerControlledPaddle()
     {
@@ -45,7 +58,7 @@ public class Paddle : MonoBehaviour
         float leftInput = paddleInputActions.LeftPaddle.Input.ReadValue<float>();
         float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
 
-        if (leftPlayerControls)
+        if (leftPaddle)
             input = leftInput;
         else
             input = rightInput;
@@ -85,12 +98,12 @@ public class Paddle : MonoBehaviour
             // upper bounds
             if (AboveUpperBounds())
             {
-                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.paddleBounds - HalfYScale());
+                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.paddleYBounds - HalfYScale());
             }
             // lower bounds
             else if (BelowLowerBounds())
             {
-                transform.position = new UnityEngine.Vector2(transform.position.x, -PaddleManager.paddleBounds + HalfYScale());
+                transform.position = new UnityEngine.Vector2(transform.position.x, -PaddleManager.paddleYBounds + HalfYScale());
             }
         }
     }
@@ -102,12 +115,12 @@ public class Paddle : MonoBehaviour
 
     bool AboveUpperBounds()
     {
-        return (transform.position.y + HalfYScale()) > PaddleManager.paddleBounds;
+        return (transform.position.y + HalfYScale()) > PaddleManager.paddleYBounds;
     }
 
     bool BelowLowerBounds()
     {
-        return (transform.position.y - HalfYScale()) < -PaddleManager.paddleBounds;
+        return (transform.position.y - HalfYScale()) < -PaddleManager.paddleYBounds;
     }
     
     float HalfYScale()

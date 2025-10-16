@@ -27,10 +27,17 @@ public class PongBall : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        LaunchBalLRandomly();
+        ResetPosition();
+        LaunchBallRandomly();
     }
 
-    private void LaunchBalLRandomly()
+    public void ResetPosition()
+    {
+        rb.linearVelocity = Vector2.zero;
+        transform.position = Vector2.zero;
+    }
+
+    public void LaunchBallRandomly()
     {
         float randomX = GenerateRandomForce(minInitialForce, maxInitialForce);
         float randomY = GenerateRandomForce(minInitialForce, maxInitialForce);
