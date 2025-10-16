@@ -1,0 +1,19 @@
+CORE
+❌⭐ add second paddle
+❌⭐ add scoring/goals
+❌⭐ add score stuffs
+❌ make functions to restart round
+
+COOL
+❌ upgrades
+❌ special abilities
+
+EXTRA
+❌ particles
+❌ post processing volume
+❌ trails
+❌ special sprites
+
+FIXES
+- idk code cleanup?
+
