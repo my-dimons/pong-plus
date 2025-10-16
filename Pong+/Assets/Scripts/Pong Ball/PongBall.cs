@@ -3,12 +3,22 @@ using UnityEngine;
 
 public class PongBall : MonoBehaviour
 {
-    [Header("Stats")]
-    [SerializeField] private float speed;
+    [Header("Start")]
 
     [Tooltip("Used for the min and max of both the x and y axis on Start() AddForce()")]
+    [Range(0, 1)]
     [SerializeField] private float maxInitialForce;
+    [Range(0, 1)]
     [SerializeField] private float minInitialForce;
+
+
+    [Space(5)]
+    [Header("Stats")]
+
+    [SerializeField] private float speed;
+    [Tooltip("Extra speed added to the ball on each paddle bounce")]
+    [SerializeField] private float extraSpeedOnBounce;
+
 
     private Rigidbody2D rb;
 
@@ -17,15 +27,15 @@ public class PongBall : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
-        float randomX = GenerateRandomForce();
-        float randomY = GenerateRandomForce();
-
-        rb.linearVelocity = new Vector2(randomX, randomY) * speed;
+        LaunchBalLRandomly();
     }
 
-    void Update()
+    private void LaunchBalLRandomly()
     {
-        
+        float randomX = GenerateRandomForce(minInitialForce, maxInitialForce);
+        float randomY = GenerateRandomForce(minInitialForce, maxInitialForce);
+
+        rb.linearVelocity = new Vector2(randomX, randomY) * speed;
     }
 
     private void OnCollisionEnter2D(Collision2D other)
@@ -42,7 +52,7 @@ public class PongBall : MonoBehaviour
             rb.linearVelocity = dir * speed;
 
             // add random speed
-            speed += Random.Range();
+            speed += extraSpeedOnBounce;
         }
     }
     
@@ -51,7 +61,13 @@ public class PongBall : MonoBehaviour
         return (ballPos.y - racketPos.y) / racketHeight;
     }
 
-    float GenerateRandomForce()
+    /// <summary>
+    /// Gets a random force from a range, and ensures that the force is not too low (min)
+    /// </summary>
+    /// <param name="min">Clipping range</param>
+    /// <param name="max">Random number input (-max, max)</param>
+    /// <returns>A random number between -max and max, if the number is too low (using Math.abs) it sets it to min (negative or positive depending on output)</returns>
+    float GenerateRandomForce(float min, float max)
     {
         float num = Random.Range(-maxInitialForce, maxInitialForce);
 

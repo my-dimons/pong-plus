@@ -1,5 +1,3 @@
-using System.Numerics;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,6 +38,7 @@ public class Paddle : MonoBehaviour
         }
     }
 
+    #region Player Controls
     void PlayerControlledPaddle()
     {
         float input;
@@ -47,26 +46,20 @@ public class Paddle : MonoBehaviour
         float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
 
         if (leftPlayerControls)
-        {
             input = leftInput;
-        }
         else
-        {
             input = rightInput;
-        }
 
-        // check to not take input if it goes out of bounds
-        if (!(((transform.position.y + GetYScaleHalf()) >= PaddleManager.maxPaddleY) && input < 0) ||
-            !(((transform.position.y - GetYScaleHalf()) <= PaddleManager.minPaddleY) && input > 0))
-        {
-            MovePaddle(paddleSpeed, input);
-        }
+        MovePaddle(paddleSpeed, input);
     }
+    #endregion
 
+    #region AI Controls
     void AIControlledPaddle()
     {
 
     }
+    #endregion
 
 
     /// <summary>
@@ -81,36 +74,10 @@ public class Paddle : MonoBehaviour
         float movement = speed * input * Time.deltaTime;
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
 
-        rb.linearVelocity = new UnityEngine.Vector2(0, movement);
+        rb.linearVelocity = new Vector2(0, movement);
     }
 
     #region Checking Bounds
-    bool InArenaBounds()
-    {
-        if (AboveUpperBounds() || BelowLowerBounds())
-        {
-            Debug.Log("Player OUT OF BOUNDS!");
-            return false;
-        }
-        else
-            return true;
-    }
-
-    bool AboveUpperBounds()
-    {
-        return (transform.position.y + GetYScaleHalf()) > PaddleManager.maxPaddleY;
-    }
-
-    bool BelowLowerBounds()
-    {
-        return (transform.position.y - GetYScaleHalf()) < -PaddleManager.minPaddleY;
-    }
-    
-    float GetYScaleHalf()
-    {
-        return transform.localScale.y / 2;
-    }
-
     void RepositionPaddleIfNotInBounds()
     {
         if (!InArenaBounds())
@@ -118,14 +85,35 @@ public class Paddle : MonoBehaviour
             // upper bounds
             if (AboveUpperBounds())
             {
-                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.maxPaddleY - GetYScaleHalf());
+                transform.position = new UnityEngine.Vector2(transform.position.x, PaddleManager.paddleBounds - HalfYScale());
             }
             // lower bounds
             else if (BelowLowerBounds())
             {
-                transform.position = new UnityEngine.Vector2(transform.position.x, -PaddleManager.minPaddleY + GetYScaleHalf());
+                transform.position = new UnityEngine.Vector2(transform.position.x, -PaddleManager.paddleBounds + HalfYScale());
             }
         }
     }
+
+    bool InArenaBounds()
+    {
+        return AboveUpperBounds() || BelowLowerBounds();
+    }
+
+    bool AboveUpperBounds()
+    {
+        return (transform.position.y + HalfYScale()) > PaddleManager.paddleBounds;
+    }
+
+    bool BelowLowerBounds()
+    {
+        return (transform.position.y - HalfYScale()) < -PaddleManager.paddleBounds;
+    }
+    
+    float HalfYScale()
+    {
+        return transform.localScale.y / 2;
+    }
+
     #endregion
 }

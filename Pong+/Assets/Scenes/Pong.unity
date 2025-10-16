@@ -201,10 +201,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 128434e79a84fc94fb93d83e05f25c97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PongBall
-  maxInitialForce: 5
-  minInitialForce: 3
-  speed: 10
-  variable: 0
+  maxInitialForce: 1
+  minInitialForce: 0.7
+  speed: 4
+  extraSpeedOnBounce: 0
 --- !u!50 &271640187
 Rigidbody2D:
   serializedVersion: 5
@@ -805,7 +805,7 @@ MonoBehaviour:
   playerControlledPaddle: 1
   leftPlayerControls: 1
   variableUseless: 0
-  paddleSpeed: 150
+  paddleSpeed: 1000
   test: {fileID: 0}
 --- !u!212 &1073051423
 SpriteRenderer:
