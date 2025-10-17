@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using UnityEngine;
 
 public class PongBall : MonoBehaviour
@@ -55,7 +54,7 @@ public class PongBall : MonoBehaviour
 
             float xDir = Mathf.Sign(transform.position.x - other.transform.position.x);
 
-            Vector2 dir = new Vector2(-xDir, y).normalized;
+            Vector2 dir = new Vector2(xDir, y).normalized;
             rb.linearVelocity = dir * speed;
 
             // add random speed

@@ -1,0 +1,62 @@
+using TMPro;
+using UnityEngine;
+
+public class ColorPalette : MonoBehaviour
+{
+    [Header("Set Theme (Overrides Custom Color)")]
+    public bool useTheme;
+    public ColorPaletteManager.ColorType currentColorType;
+    private ColorPaletteManager.ColorTheme appliedColorTheme;
+
+    [Header("Custom Color")]
+    public float alpha = 1f;
+    public ColorPaletteManager.ColorPaletteEnum color;
+
+    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        UpdateColor();
+    }
+
+    void SetColor(Color color)
+    {
+        if (GetComponent<Camera>())
+        {
+            Camera.main.backgroundColor = color;
+        }
+        else if (GetComponent<TextMeshProUGUI>())
+        {
+            GetComponent<TextMeshProUGUI>().color = color;
+        }
+        else if (GetComponent<SpriteRenderer>())
+        {
+            GetComponent<SpriteRenderer>().color = color;
+        }
+    }
+
+    void UpdateColor()
+    {
+        Color color = GetColor();
+        if (useTheme)
+        {
+            color = ColorPaletteManager.GetColorFromTheme(currentColorType);
+        }
+
+        SetColor(Utils.ColorWithAlpha(color, alpha));
+    }
+
+    Color GetColor()
+    {
+        return ColorPaletteManager.GetColorFromPalette(color);
+    }
+
+    private void Update()
+    {
+        if (ColorPaletteManager.currentTheme != appliedColorTheme)
+        {
+            appliedColorTheme = ColorPaletteManager.currentTheme;
+
+            UpdateColor();
+        }
+    }
+}

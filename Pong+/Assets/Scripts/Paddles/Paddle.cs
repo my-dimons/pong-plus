@@ -9,13 +9,12 @@ public class Paddle : MonoBehaviour
     private PaddleInputActions paddleInputActions;
 
     [Header("AI Controlled Paddle")]
-    public bool variableUseless;
+    public bool uselessVariable;
 
     [Space(10)]
     [Header("Paddle Stats")]
     public bool leftPaddle;
     [SerializeField] private float paddleSpeed;
-    public GameObject test;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
