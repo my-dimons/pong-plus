@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ColorPalette : MonoBehaviour
 {
@@ -19,18 +20,23 @@ public class ColorPalette : MonoBehaviour
 
     void SetColor(Color color)
     {
-        if (GetComponent<Camera>())
+        if (GetComponent<SpriteRenderer>())
         {
-            Camera.main.backgroundColor = color;
+            GetComponent<SpriteRenderer>().color = color;
         }
         else if (GetComponent<TextMeshProUGUI>())
         {
             GetComponent<TextMeshProUGUI>().color = color;
         }
-        else if (GetComponent<SpriteRenderer>())
+        else if (GetComponent<Image>())
         {
-            GetComponent<SpriteRenderer>().color = color;
+            GetComponent<Image>().color = color;
         }
+        else if (GetComponent<Camera>())
+        {
+            Camera.main.backgroundColor = color;
+        }
+
     }
 
     void UpdateColor()

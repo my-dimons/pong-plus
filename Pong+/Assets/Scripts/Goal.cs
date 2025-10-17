@@ -10,6 +10,8 @@ public class Goal : MonoBehaviour
         {
             StartCoroutine(GameManager.RestartRound(3));
 
+            UpgradeManager.Instance.SpawnUpgrades();
+
             ScoreManager.AddPointsToPaddle(leftGoal, 1);
         }
     }

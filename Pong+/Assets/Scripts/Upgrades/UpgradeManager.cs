@@ -6,8 +6,16 @@ public class UpgradeManager : MonoBehaviour
     public static UpgradeManager Instance { get; private set; }
 
     [SerializeField] private List<Upgrade> upgrades = new List<Upgrade>();
-    public GameObject upgradePrefab;
-    public int spawningUpgradeAmount;
+    [Header("Upgrade UI")]
+    [SerializeField] private GameObject spawningUpgradeParent;
+    [Tooltip("The negative and positive of this value are the bounds that upgrades can spawn at")]
+    [SerializeField] private float upgradeSpawningRange;
+    [SerializeField] private float upgradeSpawningY;
+
+    [SerializeField] private GameObject upgradePrefab;
+    [SerializeField] private int spawningUpgradeAmount;
+
+    private List<GameObject> spawnedUpgrades = new List<GameObject>();
 
     private void Awake()
     {
@@ -34,6 +42,7 @@ public class UpgradeManager : MonoBehaviour
     {
 
     }
+
     private void LoadUpgrades()
     {
         string upgradeObjectsPath = "Upgrades";
@@ -65,6 +74,30 @@ public class UpgradeManager : MonoBehaviour
         {
             spawningUpgrades.Add(GetRandomUpgrade());
         }
+
+        CreateUpgrades(spawningUpgrades);
+    }
+
+    private void CreateUpgrades(List<Upgrade> upgs)
+    {
+        for (int i = 0; i < upgs.Count; i++)
+        {
+            float distinceBetweenUpgrades = (upgradeSpawningRange * 2) / (upgs.Count - 1);
+
+            Vector2 spawnPos = new(-upgradeSpawningRange + (distinceBetweenUpgrades * i), upgradeSpawningY);
+
+            if (upgs.Count <= 1)
+                spawnPos = new Vector2(0, upgradeSpawningY);
+
+            GameObject spawnObj = Instantiate(upgradePrefab, spawningUpgradeParent.transform);
+
+            UpgradeObject spawnObjUpgrade = spawnObj.GetComponent<UpgradeObject>();
+
+            spawnObjUpgrade.upgrade = upgs[i];
+
+            spawnObj.GetComponent<RectTransform>().localPosition = spawnPos;
+            spawnedUpgrades.Add(spawnObj);
+        }
     }
     
     public Upgrade GetRandomUpgrade()
@@ -87,6 +120,11 @@ public class UpgradeManager : MonoBehaviour
 
     public void DespawnUpgrades()
     {
-        
+        if (spawnedUpgrades.Count <= 0) return;
+
+        foreach (GameObject upg in spawnedUpgrades)
+        {
+            Destroy(upg);
+        }
     }
 }
