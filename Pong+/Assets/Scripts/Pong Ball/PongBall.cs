@@ -75,11 +75,11 @@ public class PongBall : MonoBehaviour
     /// <returns>A random number between -max and max, if the number is too low (using Math.abs) it sets it to min (negative or positive depending on output)</returns>
     float GenerateRandomForce(float min, float max)
     {
-        float num = Random.Range(-maxInitialForce, maxInitialForce);
+        float num = Random.Range(-max, max);
 
-        if (Mathf.Abs(num) < minInitialForce)
+        if (Mathf.Abs(num) < min)
         {
-            num = Mathf.Sign(num) * minInitialForce;
+            num = Mathf.Sign(num) * min;
         }
 
         return num;

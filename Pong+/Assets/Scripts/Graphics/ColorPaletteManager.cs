@@ -8,6 +8,9 @@ public class ColorPaletteManager
     // THEME
     public static ColorTheme currentTheme = ColorTheme.normal;
 
+    public delegate void OnThemeChanged();
+    public static event OnThemeChanged ThemeChanged;
+
     // COLORS
     static readonly Color green     = Utils.HexToColor("#5fff76");
     static readonly Color white     = Utils.HexToColor("#fcfbed");
@@ -174,5 +177,6 @@ public class ColorPaletteManager
     public static void ChangeTheme(ColorTheme newTheme)
     {
         currentTheme = newTheme;
+        ThemeChanged?.Invoke();
     }
 }

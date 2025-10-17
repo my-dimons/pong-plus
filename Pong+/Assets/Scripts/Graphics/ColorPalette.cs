@@ -6,7 +6,6 @@ public class ColorPalette : MonoBehaviour
     [Header("Set Theme (Overrides Custom Color)")]
     public bool useTheme;
     public ColorPaletteManager.ColorType currentColorType;
-    private ColorPaletteManager.ColorTheme appliedColorTheme;
 
     [Header("Custom Color")]
     public float alpha = 1f;
@@ -50,13 +49,15 @@ public class ColorPalette : MonoBehaviour
         return ColorPaletteManager.GetColorFromPalette(color);
     }
 
-    private void Update()
+    #region Theme Change Event
+    private void OnEnable()
     {
-        if (ColorPaletteManager.currentTheme != appliedColorTheme)
-        {
-            appliedColorTheme = ColorPaletteManager.currentTheme;
-
-            UpdateColor();
-        }
+        ColorPaletteManager.ThemeChanged += UpdateColor;
     }
+
+    private void OnDisable()
+    {
+        ColorPaletteManager.ThemeChanged -= UpdateColor;
+    }
+    #endregion
 }
