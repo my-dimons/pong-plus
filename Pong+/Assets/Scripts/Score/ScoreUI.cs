@@ -13,7 +13,7 @@ public class ScoreUI : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        leftScore.text = ScoreManager.leftPaddleScore.ToString();
-        rightScore.text = ScoreManager.rightPaddleScore.ToString();
+        leftScore.text = ScoreManager.GetScore(false);
+        rightScore.text = ScoreManager.GetScore(true);
     }
 }
