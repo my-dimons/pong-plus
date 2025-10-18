@@ -44,7 +44,7 @@ public class ColorPalette : MonoBehaviour
         Color color = GetColor();
         if (useTheme)
         {
-            color = ColorPaletteManager.GetColorFromTheme(currentColorType);
+            color = ColorPaletteManager.Instance.GetColorFromTheme(currentColorType);
         }
 
         SetColor(Utils.ColorWithAlpha(color, alpha));
@@ -52,7 +52,7 @@ public class ColorPalette : MonoBehaviour
 
     Color GetColor()
     {
-        return ColorPaletteManager.GetColorFromPalette(color);
+        return ColorPaletteManager.Instance.GetColorFromPalette(color);
     }
 
     #region Theme Change Event

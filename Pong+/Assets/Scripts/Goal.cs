@@ -2,17 +2,21 @@ using UnityEngine;
 
 public class Goal : MonoBehaviour
 {
-    public bool leftGoal;
+    public PaddleManager.PaddleSides goalSide;
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.gameObject.CompareTag("PongBall"))
         {
-            StartCoroutine(GameManager.RestartRound(3));
+            if (GameManager.Instance.spawnUpgrades)
+            {
+                UpgradeManager.Instance.SpawnUpgrades(goalSide);
+                GameManager.Instance.pauseRound = true;
+            }
 
-            UpgradeManager.Instance.SpawnUpgrades();
+            StartCoroutine(GameManager.Instance.RestartRound());
 
-            ScoreManager.AddPointsToPaddle(leftGoal, 1);
+            ScoreManager.AddPointsToPaddle(goalSide, 1);
         }
     }
 }

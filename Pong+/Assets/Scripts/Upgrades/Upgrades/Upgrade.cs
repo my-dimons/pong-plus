@@ -18,11 +18,9 @@ public abstract class Upgrade : ScriptableObject
 
     public abstract void ApplyUpgrade();
 
-    /// <summary>
-    /// Call after applying upgrade
-    /// </summary>
     public void AppliedUpgrade()
     {
+        Debug.Log("Applied Upgrade: " + upgradeName);
         UpgradeManager.Instance.DespawnUpgrades();
     }
 }

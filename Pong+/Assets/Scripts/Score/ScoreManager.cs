@@ -13,9 +13,9 @@ public static class ScoreManager
         rightPaddleScore = 0;
     }
 
-    public static void AddPointsToPaddle(bool isLeftPaddle, int amount)
+    public static void AddPointsToPaddle(PaddleManager.PaddleSides paddle, int amount)
     {
-        if (isLeftPaddle)
+        if (paddle == PaddleManager.PaddleSides.left)
         {
             leftPaddleScore += amount;
         }

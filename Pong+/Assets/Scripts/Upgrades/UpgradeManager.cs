@@ -1,11 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
 
-    [SerializeField] private List<Upgrade> upgrades = new List<Upgrade>();
+    [SerializeField] private List<Upgrade> upgrades = new();
     [Header("Upgrade UI")]
     [SerializeField] private GameObject spawningUpgradeParent;
     [Tooltip("The negative and positive of this value are the bounds that upgrades can spawn at")]
@@ -15,7 +16,7 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private GameObject upgradePrefab;
     [SerializeField] private int spawningUpgradeAmount;
 
-    private List<GameObject> spawnedUpgrades = new List<GameObject>();
+    private List<GameObject> spawnedUpgrades = new();
 
     private void Awake()
     {
@@ -34,54 +35,34 @@ public class UpgradeManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        LoadUpgrades(); 
-    }
+        upgrades = Utils.LoadScriptableObjects<Upgrade>("Upgrades").ToList<Upgrade>();
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    private void LoadUpgrades()
-    {
-        string upgradeObjectsPath = "Upgrades";
-
-        Upgrade[] loadedUpgrades = Resources.LoadAll<Upgrade>(upgradeObjectsPath);
-
-        if (loadedUpgrades.Length <= 0)
+        foreach (Upgrade upg in upgrades)
         {
-            Debug.LogWarning("No commands found in Resources/" + upgradeObjectsPath + " folder.");
-            return;
-        }
-
-        foreach (Upgrade upgrade in loadedUpgrades)
-        {
-           if (upgrade.enabled)
-           {
-               upgrades.Add(upgrade);
-
-               Debug.Log($"Loaded command: {upgrade.upgradeName}");
-           }
+            if (!upg.enabled)
+            {
+                upgrades.Remove(upg);
+            }
         }
     }
 
-    public void SpawnUpgrades()
+    public void SpawnUpgrades(PaddleManager.PaddleSides paddleSide)
     {
-        List<Upgrade> spawningUpgrades = new List<Upgrade>();
+        List<Upgrade> spawningUpgrades = new();
 
         for (int i = 0; i < spawningUpgradeAmount; i++)
         {
             spawningUpgrades.Add(GetRandomUpgrade());
         }
 
-        CreateUpgrades(spawningUpgrades);
+        CreateUpgrades(spawningUpgrades, paddleSide);
     }
 
-    private void CreateUpgrades(List<Upgrade> upgs)
+    private void CreateUpgrades(List<Upgrade> upgs, PaddleManager.PaddleSides paddleSide)
     {
         for (int i = 0; i < upgs.Count; i++)
         {
+            // math to space upgrades properly
             float distinceBetweenUpgrades = (upgradeSpawningRange * 2) / (upgs.Count - 1);
 
             Vector2 spawnPos = new(-upgradeSpawningRange + (distinceBetweenUpgrades * i), upgradeSpawningY);
@@ -89,11 +70,13 @@ public class UpgradeManager : MonoBehaviour
             if (upgs.Count <= 1)
                 spawnPos = new Vector2(0, upgradeSpawningY);
 
+            // spawn upgrade object
             GameObject spawnObj = Instantiate(upgradePrefab, spawningUpgradeParent.transform);
 
             UpgradeObject spawnObjUpgrade = spawnObj.GetComponent<UpgradeObject>();
 
             spawnObjUpgrade.upgrade = upgs[i];
+            spawnObjUpgrade.paddleSide = paddleSide;
 
             spawnObj.GetComponent<RectTransform>().localPosition = spawnPos;
             spawnedUpgrades.Add(spawnObj);
@@ -126,5 +109,9 @@ public class UpgradeManager : MonoBehaviour
         {
             Destroy(upg);
         }
+
+        // resume game
+        Debug.Log("Finished picking upgrades, resuming game");
+        GameManager.Instance.pauseRound = false;
     }
 }

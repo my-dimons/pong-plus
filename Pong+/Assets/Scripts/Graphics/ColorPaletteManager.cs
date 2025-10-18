@@ -1,12 +1,30 @@
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
+using System.Collections.Generic;
+using System.Linq;
 
-public class ColorPaletteManager
+public class ColorPaletteManager : MonoBehaviour
 {
-    // THEME
-    public static ColorTheme currentTheme = ColorTheme.normal;
+    public static ColorPaletteManager Instance { get; private set; }
+    public ColorTheme theme;
+    public List<ColorTheme> availableThemes = new();
+
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Debug.LogWarning("More than 2 instances of the ColorPaletteManager class were found! Deleting duplicate");
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
+
+    private void Start()
+    {
+        availableThemes = Utils.LoadScriptableObjects<ColorTheme>("Themes").ToList<ColorTheme>();
+    }
 
     public delegate void OnThemeChanged();
     public static event OnThemeChanged ThemeChanged;
@@ -31,6 +49,8 @@ public class ColorPaletteManager
         black,
         red,
         blue,
+        lightGrey,
+        yellow,
         error
     }
 
@@ -48,17 +68,7 @@ public class ColorPaletteManager
         text
     }
 
-    [HideInInspector] 
-    public enum ColorTheme
-    {
-        normal,
-        light,
-        dark,
-        contrast,
-        spinblade
-    }
-
-    public static Color GetColorFromPalette(ColorPaletteEnum color)
+    public Color GetColorFromPalette(ColorPaletteEnum color)
     {
         return color switch
         {
@@ -68,115 +78,37 @@ public class ColorPaletteManager
             ColorPaletteEnum.black => black,
             ColorPaletteEnum.red   => red,
             ColorPaletteEnum.blue  => blue,
+            ColorPaletteEnum.lightGrey  => lightGrey,
+            ColorPaletteEnum.yellow  => yellow,
             _ => error,
         };
     }
 
-    public static Color GetColorFromTheme(ColorType type)
+    public Color GetColorFromTheme(ColorType type)
     {
-        // normal theme
-        if (currentTheme == ColorTheme.normal)
+        if (theme == null)
         {
-            return type switch
-            {
-                ColorType.background  => black,
-                ColorType.leftPaddle  => green,
-                ColorType.leftGoal    => green,
-                ColorType.rightPaddle => green,
-                ColorType.rightGoal   => green,
-                ColorType.ball        => green,
-                ColorType.walls       => green,
-                ColorType.text        => green,
-                _ => error,
-            };
-        }
-        // light theme
-        else if (currentTheme == ColorTheme.light)
-        {
-            return type switch
-            {
-                ColorType.background  => lightGrey,
-                ColorType.leftPaddle  => black,
-                ColorType.leftGoal    => black,
-                ColorType.rightPaddle => black,
-                ColorType.rightGoal   => black,
-                ColorType.ball        => black,
-                ColorType.walls       => black,
-                ColorType.text        => green,
-                _ => error,
-            };
-        }
-        else if (currentTheme == ColorTheme.dark)
-        {
-            return type switch
-            {
-                ColorType.background  => black,
-                ColorType.leftPaddle  => white,
-                ColorType.leftGoal    => white,
-                ColorType.rightPaddle => white,
-                ColorType.rightGoal   => white,
-                ColorType.ball        => white,
-                ColorType.walls       => white,
-                ColorType.text        => green,
-                _ => error,
-            };
-        }
-        else if (currentTheme == ColorTheme.contrast)
-        {
-            return type switch
-            {
-                ColorType.background  => black,
-                ColorType.leftPaddle  => blue,
-                ColorType.leftGoal    => blue,
-                ColorType.rightPaddle => red,
-                ColorType.rightGoal   => red,
-                ColorType.ball        => white,
-                ColorType.walls       => white,
-                ColorType.text        => green,
-                _ => error,
-            };
-        }
-        else if (currentTheme == ColorTheme.spinblade)
-        {
-            return type switch
-            {
-                ColorType.background  => black,
-                ColorType.leftPaddle  => blue,
-                ColorType.leftGoal    => blue,
-                ColorType.rightPaddle => blue,
-                ColorType.rightGoal   => blue,
-                ColorType.ball        => red,
-                ColorType.walls       => white,
-                ColorType.text        => green,
-                _ => error,
-            };
-        }
-        else
-        {
+            Debug.LogError("No color theme is set in ColorPaletteManager!");
             return error;
         }
-    }
 
-    /*
-    private static Color GenerateColorPaletteFromType(ColorType type, Color bg, Color lp, Color lg, Color rp, Color rg, Color ball, Color wall)
-    {
         return type switch
         {
-            ColorType.background => bg,
-            ColorType.leftPaddle => lp,
-            ColorType.leftGoal => lg,
-            ColorType.rightPaddle => rp,
-            ColorType.rightGoal => rg,
-            ColorType.ball => ball,
-            ColorType.walls => wall,
+            ColorType.background  => GetColorFromPalette(theme.backgroundColor),
+            ColorType.leftPaddle  => GetColorFromPalette(theme.leftPaddleColor),
+            ColorType.leftGoal    => GetColorFromPalette(theme.leftGoalColor),
+            ColorType.rightPaddle => GetColorFromPalette(theme.rightPaddleColor),
+            ColorType.rightGoal   => GetColorFromPalette(theme.rightGoalColor),
+            ColorType.ball        => GetColorFromPalette(theme.ballColor),
+            ColorType.walls       => GetColorFromPalette(theme.wallsColor),
+            ColorType.text        => GetColorFromPalette(theme.textColor),
             _ => error,
         };
     }
-    */
 
-    public static void ChangeTheme(ColorTheme newTheme)
+    public void ChangeTheme(ColorTheme newTheme)
     {
-        currentTheme = newTheme;
+        theme = newTheme;
         ThemeChanged?.Invoke();
     }
 }

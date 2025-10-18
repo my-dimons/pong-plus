@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eeacf9b3063b9899bc47826acea064e, type: 3}
-  m_Name: upg
+  m_Name: health
   m_EditorClassIdentifier: Assembly-CSharp::ExampleUpgrade
-  image: {fileID: 0}
-  upgradeName: ttiel
-  description: 
+  image: {fileID: -5276829520503434606, guid: 8854b55f7af27044b94a6b8b64e9abc8, type: 3}
+  upgradeName: health
+  description: more health
   weight: 1
   enabled: 1
-  example: fsdfe
+  example: 

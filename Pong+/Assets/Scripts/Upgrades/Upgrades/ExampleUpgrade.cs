@@ -10,6 +10,6 @@ public class ExampleUpgrade : Upgrade
 
     public override void ApplyUpgrade()
     {
-        AppliedUpgrade();
+
     }
 }

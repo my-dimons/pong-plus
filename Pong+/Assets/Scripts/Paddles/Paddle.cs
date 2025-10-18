@@ -3,18 +3,18 @@ using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour
 {
-    [Header("Player Controlled Paddle")]
-    public bool playerControlledPaddle;
+    [Header("Controls")]
+    public PaddleManager.ControlTypes controlType;
     [Tooltip("True = Left Player, False = Right Player (Used for controls)")]
     private PaddleInputActions paddleInputActions;
 
-    [Header("AI Controlled Paddle")]
+    [Header("AI Tuning")]
     public bool uselessVariable;
 
     [Space(10)]
     [Header("Paddle Stats")]
-    public bool leftPaddle;
-    [SerializeField] private float paddleSpeed;
+    public PaddleManager.PaddleSides paddleSide;
+    public float PaddleSpeed { get; private set; }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -28,7 +28,7 @@ public class Paddle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (playerControlledPaddle)
+        if (controlType == PaddleManager.ControlTypes.player)
         {
             PlayerControlledPaddle();
         }
@@ -40,7 +40,7 @@ public class Paddle : MonoBehaviour
 
     public void OffsetPaddle()
     {
-        if (leftPaddle)
+        if (paddleSide == PaddleManager.PaddleSides.left)
         {
             transform.position = new Vector2(PaddleManager.paddleXOffset, 0);
         } else
@@ -56,12 +56,12 @@ public class Paddle : MonoBehaviour
         float leftInput = paddleInputActions.LeftPaddle.Input.ReadValue<float>();
         float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
 
-        if (leftPaddle)
+        if (paddleSide == PaddleManager.PaddleSides.left)
             input = leftInput;
         else
             input = rightInput;
 
-        MovePaddle(paddleSpeed, input);
+        MovePaddle(PaddleSpeed, input);
     }
     #endregion
 

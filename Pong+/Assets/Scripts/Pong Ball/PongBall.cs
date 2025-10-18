@@ -10,7 +10,6 @@ public class PongBall : MonoBehaviour
     [Range(0, 1)]
     [SerializeField] private float minInitialForce;
 
-
     [Space(5)]
     [Header("Stats")]
 
@@ -58,7 +57,7 @@ public class PongBall : MonoBehaviour
             rb.linearVelocity = dir * speed;
 
             // add random speed
-            speed += extraSpeedOnBounce;
+            IncreaseSpeed(extraSpeedOnBounce);
         }
     }
     
@@ -83,5 +82,10 @@ public class PongBall : MonoBehaviour
         }
 
         return num;
+    }
+
+    public void IncreaseSpeed(float amount)
+    {
+        speed += amount;
     }
 }
