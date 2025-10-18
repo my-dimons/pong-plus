@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f6f03ae35e8eef49bddc22ca65266ca, type: 3}
-  m_Name: default
+  m_Name: blue
   m_EditorClassIdentifier: Assembly-CSharp::ColorTheme
   backgroundColor: 3
-  leftPaddleColor: 0
-  leftGoalColor: 0
-  rightPaddleColor: 0
-  rightGoalColor: 0
-  ballColor: 0
-  wallsColor: 0
-  textColor: 0
+  leftPaddleColor: 5
+  leftGoalColor: 5
+  rightPaddleColor: 5
+  rightGoalColor: 5
+  ballColor: 5
+  wallsColor: 5
+  textColor: 5

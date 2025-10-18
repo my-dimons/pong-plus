@@ -8,13 +8,13 @@ public class Paddle : MonoBehaviour
     [Tooltip("True = Left Player, False = Right Player (Used for controls)")]
     private PaddleInputActions paddleInputActions;
 
+    [Header("Paddle Stats")]
+    public PaddleManager.PaddleSides paddleSide;
+
     [Header("AI Tuning")]
     public bool uselessVariable;
 
-    [Space(10)]
-    [Header("Paddle Stats")]
-    public PaddleManager.PaddleSides paddleSide;
-    public float PaddleSpeed { get; private set; }
+    [SerializeField] private float paddleSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,35 +43,12 @@ public class Paddle : MonoBehaviour
         if (paddleSide == PaddleManager.PaddleSides.left)
         {
             transform.position = new Vector2(PaddleManager.paddleXOffset, 0);
-        } else
+        }
+        else
         {
             transform.position = new Vector2(-PaddleManager.paddleXOffset, 0);
         }
     }
-
-    #region Player Controls
-    void PlayerControlledPaddle()
-    {
-        float input;
-        float leftInput = paddleInputActions.LeftPaddle.Input.ReadValue<float>();
-        float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
-
-        if (paddleSide == PaddleManager.PaddleSides.left)
-            input = leftInput;
-        else
-            input = rightInput;
-
-        MovePaddle(PaddleSpeed, input);
-    }
-    #endregion
-
-    #region AI Controls
-    void AIControlledPaddle()
-    {
-
-    }
-    #endregion
-
 
     /// <summary>
     /// Move the object by a speed mutliplied by input by Time.DeltaTime
@@ -87,6 +64,29 @@ public class Paddle : MonoBehaviour
 
         rb.linearVelocity = new Vector2(0, movement);
     }
+
+    #region Player Controls
+    void PlayerControlledPaddle()
+    {
+        float input;
+        float leftInput = paddleInputActions.LeftPaddle.Input.ReadValue<float>();
+        float rightInput = paddleInputActions.RightPaddle.Input.ReadValue<float>();
+
+        if (paddleSide == PaddleManager.PaddleSides.left)
+            input = leftInput;
+        else
+            input = rightInput;
+
+        MovePaddle(paddleSpeed, input);
+    }
+    #endregion
+
+    #region AI Controls
+    void AIControlledPaddle()
+    {
+
+    }
+    #endregion
 
     #region Checking Bounds
     void RepositionPaddleIfNotInBounds()
@@ -120,10 +120,42 @@ public class Paddle : MonoBehaviour
     {
         return (transform.position.y - HalfYScale()) < -PaddleManager.paddleYBounds;
     }
-    
+
     float HalfYScale()
     {
         return transform.localScale.y / 2;
+    }
+
+    #endregion
+
+    #region Changing Stats
+    public void ChangePaddleSpeed(float newSpeed)
+    {
+        if (!CanChangePaddleSpeed(newSpeed))
+            return;
+
+        paddleSpeed += newSpeed;
+    }
+
+    public bool CanChangePaddleSpeed(float speedChange)
+    {
+        return paddleSpeed + speedChange >= PaddleManager.minimumPaddleSpeed;
+    }
+
+    public void ChangePaddleHeight(float heightChange)
+    {
+        if (!CanChangePaddleHeight(heightChange))
+            return;
+
+        Vector2 newScale = transform.localScale;
+        newScale.y += heightChange;
+        transform.localScale = newScale;
+    }
+
+    public bool CanChangePaddleHeight(float heightChange)
+    {
+        float newHeight = transform.localScale.y + heightChange;
+        return newHeight >= PaddleManager.minimumPaddleHeight && newHeight <= PaddleManager.maximumPaddleHeight;
     }
 
     #endregion

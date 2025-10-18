@@ -13,10 +13,13 @@ public class PongBall : MonoBehaviour
     [Space(5)]
     [Header("Stats")]
 
+    [SerializeField] private float baseSpeed;
     [SerializeField] private float speed;
     [Tooltip("Extra speed added to the ball on each paddle bounce")]
     [SerializeField] private float extraSpeedOnBounce;
-
+    [Space(5)]
+    [SerializeField] private float minimumSize;
+    [SerializeField] private float minimumSpeed = 0.1f;
 
     private Rigidbody2D rb;
 
@@ -25,6 +28,7 @@ public class PongBall : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
 
+        ResetSpeed();
         ResetPosition();
         LaunchBallRandomly();
     }
@@ -33,6 +37,11 @@ public class PongBall : MonoBehaviour
     {
         rb.linearVelocity = Vector2.zero;
         transform.position = Vector2.zero;
+    }
+
+    public void ResetSpeed()
+    {
+        speed = baseSpeed;
     }
 
     public void LaunchBallRandomly()
@@ -57,7 +66,7 @@ public class PongBall : MonoBehaviour
             rb.linearVelocity = dir * speed;
 
             // add random speed
-            IncreaseSpeed(extraSpeedOnBounce);
+            speed += extraSpeedOnBounce;
         }
     }
     
@@ -84,8 +93,33 @@ public class PongBall : MonoBehaviour
         return num;
     }
 
-    public void IncreaseSpeed(float amount)
+    #region Stat Changes
+    public void ChangeSpeed(float amount)
     {
-        speed += amount;
+        if (!CanChangeSpeed(amount))
+            return;
+
+        baseSpeed += Mathf.Clamp(amount, minimumSpeed, Mathf.Infinity);
     }
+
+    public bool CanChangeSpeed(float amount)
+    {
+        return baseSpeed + amount > minimumSpeed;
+    }
+
+    public void ChangeSize(float amount)
+    {
+        if (!CanChangeSize(amount))
+            return;
+
+        float size = Mathf.Clamp(amount, minimumSize, Mathf.Infinity);
+        Vector3 newSize = new Vector3(size, size, 0);
+        transform.localScale += newSize;
+    }
+
+    public bool CanChangeSize(float amount)
+    {
+        return transform.localScale.x + amount > minimumSize;
+    }
+    #endregion
 }

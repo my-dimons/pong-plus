@@ -280,8 +280,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PongBall
   maxInitialForce: 1
   minInitialForce: 0.7
-  speed: 4
-  extraSpeedOnBounce: 0.1
+  baseSpeed: 6
+  speed: 0
+  extraSpeedOnBounce: 0.2
+  minimumSize: 0.3
+  minimumSpeed: 0.1
 --- !u!50 &271640187
 Rigidbody2D:
   serializedVersion: 5
@@ -893,7 +896,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffc89b6a7adb4ed40a5fb1e4270e2a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorPaletteManager
-  theme: {fileID: 11400000, guid: 2a476ee0d19156849baf0d1f2e99a71a, type: 2}
+  theme: {fileID: 11400000, guid: 99e9639b42d2a6c448880c79960c60ba, type: 2}
   availableThemes: []
 --- !u!1 &908866644
 GameObject:
@@ -1272,7 +1275,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.05, y: 0, z: 0}
-  m_LocalScale: {x: 0.3433, y: 1.56, z: 1}
+  m_LocalScale: {x: 0.3433, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1594000050}
@@ -1289,10 +1292,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2108d6ee40d16b22b929320b115f1947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Paddle
-  playerControlledPaddle: 1
+  controlType: 0
+  paddleSide: 0
   uselessVariable: 0
-  leftPaddle: 1
-  paddleSpeed: 300
+  paddleSpeed: 260
 --- !u!212 &1073051423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1574,7 +1577,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7, y: 0, z: 0}
-  m_LocalScale: {x: 0.3433, y: 1.56, z: 1}
+  m_LocalScale: {x: 0.3433, y: 1.3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1594000050}
@@ -1664,10 +1667,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2108d6ee40d16b22b929320b115f1947, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Paddle
-  playerControlledPaddle: 1
+  controlType: 0
+  paddleSide: 1
   uselessVariable: 0
-  leftPaddle: 0
-  paddleSpeed: 300
+  paddleSpeed: 260
 --- !u!212 &1128438646
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2487,7 +2490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078d713633c74999a8eac713a7625cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goal
-  leftGoal: 0
+  goalSide: 1
 --- !u!114 &1866162218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2765,7 +2768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078d713633c74999a8eac713a7625cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goal
-  leftGoal: 1
+  goalSide: 0
 --- !u!114 &2024757877
 MonoBehaviour:
   m_ObjectHideFlags: 0

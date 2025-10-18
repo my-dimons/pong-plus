@@ -7,6 +7,7 @@ public static class Utils
         color.a = alpha;
         return color;
     }
+
     public static Color HexToColor(string hex)
     {
         if (ColorUtility.TryParseHtmlString(hex, out Color color))
@@ -19,21 +20,6 @@ public static class Utils
             return Color.white; // Default to white if parsing fails
         }
     }
-
-    //public static ScriptableObject[] LoadScriptableObjects(string path)
-    //{
-    //    string objectsPath = "Upgrades";
-    //
-    //    ScriptableObject[] loadedObjects = Resources.LoadAll<ScriptableObject>(objectsPath);
-    //
-    //    if (loadedObjects.Length <= 0)
-    //    {
-    //        Debug.LogWarning("No commands found in Resources/" + objectsPath + " folder.");
-    //        return null;
-    //    }
-    //
-    //    return loadedObjects;
-    //}
 
     public static T[] LoadScriptableObjects<T>(string path) where T : ScriptableObject
     {

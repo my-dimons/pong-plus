@@ -6,8 +6,17 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
 
+    public enum UpgradeType
+    {
+        normal, // average upgrade
+        detrimental, // bad upgrade (usually hurts other player)
+        ability // special upgrade that gives player an ability
+    }
+
     [SerializeField] private List<Upgrade> upgrades = new();
+
     [Header("Upgrade UI")]
+
     [SerializeField] private GameObject spawningUpgradeParent;
     [Tooltip("The negative and positive of this value are the bounds that upgrades can spawn at")]
     [SerializeField] private float upgradeSpawningRange;
@@ -52,7 +61,7 @@ public class UpgradeManager : MonoBehaviour
 
         for (int i = 0; i < spawningUpgradeAmount; i++)
         {
-            spawningUpgrades.Add(GetRandomUpgrade());
+            spawningUpgrades.Add(GetRandomUpgrade(paddleSide));
         }
 
         CreateUpgrades(spawningUpgrades, paddleSide);
@@ -82,8 +91,8 @@ public class UpgradeManager : MonoBehaviour
             spawnedUpgrades.Add(spawnObj);
         }
     }
-    
-    public Upgrade GetRandomUpgrade()
+
+    public Upgrade GetRandomUpgrade(PaddleManager.PaddleSides paddleSide)
     {
         while (true)
         {
@@ -93,7 +102,8 @@ public class UpgradeManager : MonoBehaviour
             // use upgrade weight to check if it should add the upgrade
             float chance = Random.Range(0, 1);
 
-            if (chance <= randomUpgrade.weight)
+            bool ableToApply = randomUpgrade.AbleToApplyUpgrade(paddleSide) && randomUpgrade.enabled;
+            if (chance <= randomUpgrade.weight && ableToApply)
             {
                 return randomUpgrade;
             }

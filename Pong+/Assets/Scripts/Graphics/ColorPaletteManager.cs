@@ -84,6 +84,8 @@ public class ColorPaletteManager : MonoBehaviour
         };
     }
 
+
+    // WARNING, DOES NOT SET THE UPGRADE UI OUTLINE COLOR
     public Color GetColorFromTheme(ColorType type)
     {
         if (theme == null)

@@ -32,16 +32,18 @@ public class GameManager : MonoBehaviour
     {
         round++;
 
-        // possibly better (and faster) way to find objects with type
         GameObject[] paddles = GameObject.FindGameObjectsWithTag("Paddle");
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
         ball.ResetPosition();
+        ball.ResetSpeed();
 
         while (pauseRound)
         {
             yield return null;
         }
+
+        yield return new WaitForSeconds(1); // wait before launching ball so player can prepare
 
         ball.LaunchBallRandomly();
 

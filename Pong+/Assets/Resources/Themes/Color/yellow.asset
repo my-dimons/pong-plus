@@ -10,16 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f6f03ae35e8eef49bddc22ca65266ca, type: 3}
-  m_Name: dark contrast
+  m_Name: yellow
   m_EditorClassIdentifier: Assembly-CSharp::ColorTheme
   backgroundColor: 3
-  leftPaddleColor: 1
+  leftPaddleColor: 7
   leftGoalColor: 7
-  rightPaddleColor: 1
+  rightPaddleColor: 7
   rightGoalColor: 7
-  normalUpgradeColor: 0
-  detrimentalUpgradeColor: 4
-  abilityUpgradeColor: 7
-  ballColor: 1
-  wallsColor: 1
-  textColor: 1
+  ballColor: 7
+  wallsColor: 7
+  textColor: 7
