@@ -15,8 +15,9 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: 3e4a9d520bdeb8e4d82b6b738dc6d416, type: 3}
   upgradeName: add paddle size
   description: grow paddle
-  weight: 1
+  upgradeType: 0
+  weight: 0.3
   enabled: 1
   changeOtherPaddle: 0
   speedChange: 0
-  heightChange: 0.2
+  heightChange: 0.5

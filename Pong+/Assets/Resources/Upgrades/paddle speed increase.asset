@@ -15,8 +15,9 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: cc3a4670d47c9c540a153b42f852b247, type: 3}
   upgradeName: add paddle speed
   description: faster paddle
+  upgradeType: 0
   weight: 1
   enabled: 1
   changeOtherPaddle: 0
-  speedChange: 30
+  speedChange: 60
   heightChange: 0

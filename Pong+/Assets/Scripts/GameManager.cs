@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
         ball.ResetPosition();
-        ball.ResetSpeed();
 
         while (pauseRound)
         {
@@ -45,6 +44,7 @@ public class GameManager : MonoBehaviour
 
         yield return new WaitForSeconds(1); // wait before launching ball so player can prepare
 
+        ball.ResetSpeed();
         ball.LaunchBallRandomly();
 
         /* reset paddle pos

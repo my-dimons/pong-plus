@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d78524d70a64c24bb02c5aa0da636bd, type: 3}
-  m_Name: increase ball speed
+  m_Name: shrink ball
   m_EditorClassIdentifier: Assembly-CSharp::BallUpgrade
-  image: {fileID: 21300000, guid: 7d70b6c47e2f4f24c817aafbdbaa2729, type: 3}
-  upgradeName: increase ball speed
-  description: speed ball up
-  upgradeType: 0
-  weight: 1
+  image: {fileID: 21300000, guid: df5edf180b101e847a42ae7da6754fab, type: 3}
+  upgradeName: decrease ball size
+  description: shrink ball
+  upgradeType: 1
+  weight: 0.5
   enabled: 1
-  speedChange: 2
-  sizeChange: 0
+  speedChange: 0
+  sizeChange: -0.05

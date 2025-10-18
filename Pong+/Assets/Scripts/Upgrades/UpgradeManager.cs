@@ -61,7 +61,7 @@ public class UpgradeManager : MonoBehaviour
 
         for (int i = 0; i < spawningUpgradeAmount; i++)
         {
-            spawningUpgrades.Add(GetRandomUpgrade(paddleSide));
+            spawningUpgrades.Add(GetRandomUpgrade(paddleSide, spawningUpgrades));
         }
 
         CreateUpgrades(spawningUpgrades, paddleSide);
@@ -92,7 +92,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
-    public Upgrade GetRandomUpgrade(PaddleManager.PaddleSides paddleSide)
+    public Upgrade GetRandomUpgrade(PaddleManager.PaddleSides paddleSide, List<Upgrade> alreadyGottenUpgrades)
     {
         while (true)
         {
@@ -103,12 +103,13 @@ public class UpgradeManager : MonoBehaviour
             float chance = Random.Range(0, 1);
 
             bool ableToApply = randomUpgrade.AbleToApplyUpgrade(paddleSide) && randomUpgrade.enabled;
-            if (chance <= randomUpgrade.weight && ableToApply)
+            bool alreadyGotten = alreadyGottenUpgrades.Contains(randomUpgrade);
+
+            if (chance <= randomUpgrade.weight && !alreadyGotten && ableToApply)
             {
                 return randomUpgrade;
             }
         }
-        
     }
 
     public void DespawnUpgrades()

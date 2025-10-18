@@ -280,11 +280,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PongBall
   maxInitialForce: 1
   minInitialForce: 0.7
-  baseSpeed: 6
+  baseSpeed: 7
   speed: 0
-  extraSpeedOnBounce: 0.2
-  minimumSize: 0.3
-  minimumSpeed: 0.1
+  extraSpeedOnBounce: 0.4
+  minimumSize: 0.1
+  minimumSpeed: 5
 --- !u!50 &271640187
 Rigidbody2D:
   serializedVersion: 5

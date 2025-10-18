@@ -19,7 +19,8 @@ public class PongBall : MonoBehaviour
     [SerializeField] private float extraSpeedOnBounce;
     [Space(5)]
     [SerializeField] private float minimumSize;
-    [SerializeField] private float minimumSpeed = 0.1f;
+    [SerializeField] private float minimumBaseSpeed = 0.1f;
+    [SerializeField] private float maximumBaseSpeed = 15f;
 
     private Rigidbody2D rb;
 
@@ -99,12 +100,12 @@ public class PongBall : MonoBehaviour
         if (!CanChangeSpeed(amount))
             return;
 
-        baseSpeed += Mathf.Clamp(amount, minimumSpeed, Mathf.Infinity);
+        baseSpeed = Mathf.Clamp(baseSpeed + amount, minimumBaseSpeed, Mathf.Infinity);
     }
 
     public bool CanChangeSpeed(float amount)
     {
-        return baseSpeed + amount > minimumSpeed;
+        return baseSpeed + amount > minimumBaseSpeed && baseSpeed + amount < maximumBaseSpeed;
     }
 
     public void ChangeSize(float amount)
@@ -112,14 +113,17 @@ public class PongBall : MonoBehaviour
         if (!CanChangeSize(amount))
             return;
 
-        float size = Mathf.Clamp(amount, minimumSize, Mathf.Infinity);
-        Vector3 newSize = new Vector3(size, size, 0);
-        transform.localScale += newSize;
+        Vector3 newSize = new Vector3
+            (Mathf.Clamp(transform.localScale.x + amount, minimumSize, Mathf.Infinity),
+             Mathf.Clamp(transform.localScale.y + amount, minimumSize, Mathf.Infinity), 
+             0);
+
+        transform.localScale = newSize;
     }
 
     public bool CanChangeSize(float amount)
     {
-        return transform.localScale.x + amount > minimumSize;
+        return ((transform.localScale.x + transform.localScale.y) / 2) + amount > minimumSize;
     }
     #endregion
 }

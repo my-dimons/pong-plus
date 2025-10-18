@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BallUpgrade
   image: {fileID: 21300000, guid: df5edf180b101e847a42ae7da6754fab, type: 3}
   upgradeName: increase ball size
-  description: increase ball size
+  description: grow ball
   upgradeType: 0
-  weight: 1
+  weight: 0.5
   enabled: 1
   speedChange: 0
-  sizeChange: 0.03
+  sizeChange: 0.05

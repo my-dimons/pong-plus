@@ -16,8 +16,8 @@ MonoBehaviour:
   upgradeName: decrease other paddle size
   description: shrink other paddle
   upgradeType: 1
-  weight: 1
+  weight: 0.1
   enabled: 1
   changeOtherPaddle: 1
   speedChange: 0
-  heightChange: -0.2
+  heightChange: 0.5
