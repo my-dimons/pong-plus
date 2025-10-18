@@ -126,3 +126,4 @@ public class UpgradeManager : MonoBehaviour
         GameManager.Instance.pauseRound = false;
     }
 }
+ 

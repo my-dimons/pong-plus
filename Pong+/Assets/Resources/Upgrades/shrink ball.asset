@@ -19,4 +19,4 @@ MonoBehaviour:
   weight: 0.5
   enabled: 1
   speedChange: 0
-  sizeChange: -0.05
+  sizeChange: -0.15

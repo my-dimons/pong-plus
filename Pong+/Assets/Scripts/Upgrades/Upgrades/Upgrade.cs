@@ -2,7 +2,6 @@ using UnityEngine;
 
 public abstract class Upgrade : ScriptableObject
 {
-
     [Header("Main Upgrade Settings")]
     [Tooltip("Should be 512x512")]
     public Sprite image;
