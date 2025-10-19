@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,10 @@ public class Paddle : MonoBehaviour
     public bool uselessVariable;
 
     [SerializeField] private float paddleSpeed;
+
+    // EVENTS
+    public event Action ChangedSize;
+    public event Action ChangedSpeed;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -50,21 +55,7 @@ public class Paddle : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Move the object by a speed mutliplied by input by Time.DeltaTime
-    /// </summary>
-    /// <param name="speed"></param>
-    /// <param name="input">Should be a -1 to 1 value</param>
-    void MovePaddle(float speed, float input)
-    {
-        RepositionPaddleIfNotInBounds();
-
-        float movement = speed * input * Time.deltaTime;
-        Rigidbody2D rb = GetComponent<Rigidbody2D>();
-
-        rb.linearVelocity = new Vector2(0, movement);
-    }
-
+    #region Movement
     #region Player Controls
     void PlayerControlledPaddle()
     {
@@ -85,6 +76,22 @@ public class Paddle : MonoBehaviour
     void AIControlledPaddle()
     {
 
+    }
+    #endregion
+
+    /// <summary>
+    /// Move the object by a speed mutliplied by input by Time.DeltaTime
+    /// </summary>
+    /// <param name="speed"></param>
+    /// <param name="input">Should be a -1 to 1 value</param>
+    void MovePaddle(float speed, float input)
+    {
+        RepositionPaddleIfNotInBounds();
+
+        float movement = speed * input * Time.deltaTime;
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+
+        rb.linearVelocity = new Vector2(0, movement);
     }
     #endregion
 
@@ -134,6 +141,8 @@ public class Paddle : MonoBehaviour
         if (!CanChangePaddleSpeed(newSpeed))
             return;
 
+        ChangedSpeed?.Invoke();
+
         paddleSpeed += newSpeed;
     }
 
@@ -146,6 +155,8 @@ public class Paddle : MonoBehaviour
     {
         if (!CanChangePaddleHeight(heightChange))
             return;
+
+        ChangedSize?.Invoke();
 
         Vector2 newScale = transform.localScale;
         newScale.y += heightChange;

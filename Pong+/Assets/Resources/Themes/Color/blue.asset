@@ -17,6 +17,10 @@ MonoBehaviour:
   leftGoalColor: 5
   rightPaddleColor: 5
   rightGoalColor: 5
+  normalUpgradeColor: 0
+  detrimentalUpgradeColor: 4
+  abilityUpgradeColor: 7
   ballColor: 5
+  ballCriticalColor: 4
   wallsColor: 5
   textColor: 5

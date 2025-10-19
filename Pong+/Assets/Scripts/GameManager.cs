@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using System;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public static event Action StartedRound;
 
     [Header("Upgrade Settings")]
     public bool spawnUpgrades = true;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour
     {
         round++;
 
+        StartedRound?.Invoke();
+
         GameObject[] paddles = GameObject.FindGameObjectsWithTag("Paddle");
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
@@ -46,6 +50,7 @@ public class GameManager : MonoBehaviour
 
         ball.ResetSpeed();
         ball.LaunchBallRandomly();
+
 
         /* reset paddle pos
         foreach (GameObject paddle in paddles)

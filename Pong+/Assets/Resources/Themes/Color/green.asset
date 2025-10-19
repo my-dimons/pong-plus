@@ -21,5 +21,6 @@ MonoBehaviour:
   detrimentalUpgradeColor: 4
   abilityUpgradeColor: 7
   ballColor: 0
+  ballCriticalColor: 7
   wallsColor: 0
   textColor: 0

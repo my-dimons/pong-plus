@@ -284,7 +284,11 @@ MonoBehaviour:
   speed: 0
   extraSpeedOnBounce: 0.4
   minimumSize: 0.1
-  minimumSpeed: 5
+  minimumBaseSpeed: 3
+  maximumBaseSpeed: 10
+  criticalHit: 0
+  hitCriticalThisBounce: 0
+  criticalHitMultiplier: 1
 --- !u!50 &271640187
 Rigidbody2D:
   serializedVersion: 5
@@ -428,10 +432,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793bbc0f8d0e25944a36a7a7bae4f66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorPalette
-  useTheme: 1
+  useTheme: 0
   currentColorType: 6
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,7 +589,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 1
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &619147384
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,7 +605,7 @@ GameObject:
   - component: {fileID: 619147389}
   m_Layer: 0
   m_Name: Top Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -767,7 +771,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 7
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1050,7 +1054,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 8
   alpha: 0.85
-  color: 0
+  overidedColor: 0
 --- !u!1 &914427269
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1189,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 7
   alpha: 0.85
-  color: 0
+  overidedColor: 0
 --- !u!212 &930846771
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1442,7 +1446,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 2
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &1111552155
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,7 +1748,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 4
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &1182566912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,7 +1764,7 @@ GameObject:
   - component: {fileID: 1182566917}
   m_Layer: 0
   m_Name: Bottom Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1926,7 +1930,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 7
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &1441881058
 GameObject:
   m_ObjectHideFlags: 0
@@ -2310,7 +2314,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 8
   alpha: 0.85
-  color: 0
+  overidedColor: 0
 --- !u!1 &1866162212
 GameObject:
   m_ObjectHideFlags: 0
@@ -2506,7 +2510,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 5
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &1935753511
 GameObject:
   m_ObjectHideFlags: 0
@@ -2784,7 +2788,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 3
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &2061013916
 GameObject:
   m_ObjectHideFlags: 0

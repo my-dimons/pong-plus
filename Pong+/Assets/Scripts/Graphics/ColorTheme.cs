@@ -18,8 +18,11 @@ public class ColorTheme : ScriptableObject
     public ColorPaletteManager.ColorPaletteEnum detrimentalUpgradeColor = ColorPaletteManager.ColorPaletteEnum.red;
     public ColorPaletteManager.ColorPaletteEnum abilityUpgradeColor = ColorPaletteManager.ColorPaletteEnum.yellow;
 
-    [Header("Msc")]
+    [Header("Ball")]
     public ColorPaletteManager.ColorPaletteEnum ballColor;
+    public ColorPaletteManager.ColorPaletteEnum ballCriticalColor;
+
+    [Header("Msc")]
     public ColorPaletteManager.ColorPaletteEnum wallsColor;
     public ColorPaletteManager.ColorPaletteEnum textColor;
 }

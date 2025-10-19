@@ -10,7 +10,7 @@ public class ColorPalette : MonoBehaviour
 
     [Header("Custom Color")]
     public float alpha = 1f;
-    public ColorPaletteManager.ColorPaletteEnum color;
+    public ColorPaletteManager.ColorPaletteEnum overidedColor;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -36,26 +36,33 @@ public class ColorPalette : MonoBehaviour
         {
             Camera.main.backgroundColor = color;
         }
+    }
 
+    private void Update()
+    {
+        UpdateColor();
     }
 
     void UpdateColor()
     {
-        Color color = GetColor();
+        Color color;
+
         if (useTheme)
         {
             color = ColorPaletteManager.Instance.GetColorFromTheme(currentColorType);
+        } else if (!useTheme)
+        {
+            color = ColorPaletteManager.Instance.GetColorFromPalette(overidedColor);
+        } else
+        {
+            color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.ColorPaletteEnum.error);
         }
 
         SetColor(Utils.ColorWithAlpha(color, alpha));
     }
 
-    Color GetColor()
-    {
-        return ColorPaletteManager.Instance.GetColorFromPalette(color);
-    }
-
     #region Theme Change Event
+    /*
     private void OnEnable()
     {
         ColorPaletteManager.ThemeChanged += UpdateColor;
@@ -65,5 +72,6 @@ public class ColorPalette : MonoBehaviour
     {
         ColorPaletteManager.ThemeChanged -= UpdateColor;
     }
+    */
     #endregion
 }

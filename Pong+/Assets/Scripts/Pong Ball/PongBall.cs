@@ -1,7 +1,10 @@
+using System;
 using UnityEngine;
 
+[RequireComponent(typeof(ColorPalette))]
 public class PongBall : MonoBehaviour
 {
+    #region Variables
     [Header("Start")]
 
     [Tooltip("Used for the min and max of both the x and y axis on Start() AddForce()")]
@@ -11,6 +14,7 @@ public class PongBall : MonoBehaviour
     [SerializeField] private float minInitialForce;
 
     [Space(5)]
+
     [Header("Stats")]
 
     [SerializeField] private float baseSpeed;
@@ -22,8 +26,47 @@ public class PongBall : MonoBehaviour
     [SerializeField] private float minimumBaseSpeed = 0.1f;
     [SerializeField] private float maximumBaseSpeed = 15f;
 
+    [Header("Abilites")]
+    public bool criticalHit;
+    [HideInInspector] public bool hitCriticalThisBounce;
+
+    public static readonly float CRITICAL_HIT_DEFAULT_MULTIPLIER = 1f;
+    public float criticalHitMultiplier = 1f;
+
+    [Space(8)]
+    public bool exampleBool;
+
+    // EVENTS
+    public event Action<PaddleManager.PaddleSides, PongBall> PaddleBounce;
+    public event Action<PongBall> BallBounce;
+    public event Action<PongBall> WallBounce;
+
+    public event Action ChangedSpeed;
+    public event Action ChangedSize;
+
     private Rigidbody2D rb;
 
+    #endregion
+
+    private void Update()
+    {
+        UpdateBallColor();
+    }
+
+    void UpdateBallColor()
+    {
+        ColorPalette colorPalette = GetComponent<ColorPalette>();
+        if (criticalHit)
+        {
+            colorPalette.overidedColor = ColorPaletteManager.Instance.theme.ballCriticalColor;
+        }
+        else
+        {
+            colorPalette.overidedColor = ColorPaletteManager.Instance.theme.ballColor;
+        }
+    }
+
+    #region Start (Applying Force + Resetting)
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -52,25 +95,40 @@ public class PongBall : MonoBehaviour
 
         rb.linearVelocity = new Vector2(randomX, randomY) * speed;
     }
+    #endregion
 
+    #region On Bounce/Collision
     private void OnCollisionEnter2D(Collision2D other)
     {
         // HIT PADDLE
         if (other.gameObject.CompareTag("Paddle"))
         {
-            // calculate direction to reflect
-            float y = HitFactor(transform.position, other.transform.position, other.collider.bounds.size.y);
+            PaddleBounce?.Invoke(other.gameObject.GetComponent<Paddle>().paddleSide, this);
+            BallBounce?.Invoke(this);
 
-            float xDir = Mathf.Sign(transform.position.x - other.transform.position.x);
-
-            Vector2 dir = new Vector2(xDir, y).normalized;
-            rb.linearVelocity = dir * speed;
+            CalculateBounce(other);
 
             // add random speed
             speed += extraSpeedOnBounce;
         }
+        else if (other.gameObject.CompareTag("Wall"))
+        {
+            BallBounce?.Invoke(this);
+            WallBounce?.Invoke(this);
+        }
     }
-    
+
+    private void CalculateBounce(Collision2D other)
+    {
+        // calculate direction to reflect
+        float y = HitFactor(transform.position, other.transform.position, other.collider.bounds.size.y);
+
+        float xDir = Mathf.Sign(transform.position.x - other.transform.position.x);
+
+        Vector2 dir = new Vector2(xDir, y).normalized;
+        rb.linearVelocity = dir * (speed * criticalHitMultiplier);
+    }
+
     float HitFactor(Vector2 ballPos, Vector2 racketPos, float racketHeight)
     {
         return (ballPos.y - racketPos.y) / racketHeight;
@@ -84,7 +142,7 @@ public class PongBall : MonoBehaviour
     /// <returns>A random number between -max and max, if the number is too low (using Math.abs) it sets it to min (negative or positive depending on output)</returns>
     float GenerateRandomForce(float min, float max)
     {
-        float num = Random.Range(-max, max);
+        float num = UnityEngine.Random.Range(-max, max);
 
         if (Mathf.Abs(num) < min)
         {
@@ -93,12 +151,15 @@ public class PongBall : MonoBehaviour
 
         return num;
     }
+    #endregion
 
     #region Stat Changes
     public void ChangeSpeed(float amount)
     {
         if (!CanChangeSpeed(amount))
             return;
+
+        ChangedSpeed?.Invoke();
 
         baseSpeed = Mathf.Clamp(baseSpeed + amount, minimumBaseSpeed, Mathf.Infinity);
     }
@@ -113,6 +174,8 @@ public class PongBall : MonoBehaviour
         if (!CanChangeSize(amount))
             return;
 
+        ChangedSize?.Invoke();
+
         Vector3 newSize = new Vector3
             (Mathf.Clamp(transform.localScale.x + amount, minimumSize, Mathf.Infinity),
              Mathf.Clamp(transform.localScale.y + amount, minimumSize, Mathf.Infinity), 
@@ -124,6 +187,44 @@ public class PongBall : MonoBehaviour
     public bool CanChangeSize(float amount)
     {
         return ((transform.localScale.x + transform.localScale.y) / 2) + amount > minimumSize;
+    }
+    #endregion
+
+    #region Abilities
+
+    #region Critical Hit
+    void ResetCriticalHit(PaddleManager.PaddleSides side, PongBall ball)
+    {   
+        if (hitCriticalThisBounce)
+        {
+            hitCriticalThisBounce = false;
+        } 
+        else if (criticalHit)
+        {
+            criticalHit = false;
+            criticalHitMultiplier = CRITICAL_HIT_DEFAULT_MULTIPLIER;
+        }
+    }
+    void ResetCriticalHit()
+    {
+        criticalHit = false;
+        criticalHitMultiplier = CRITICAL_HIT_DEFAULT_MULTIPLIER;
+    }
+    #endregion
+
+    #endregion
+
+    #region Add Listeners
+    private void OnEnable()
+    {
+        PaddleBounce += ResetCriticalHit;
+        GameManager.StartedRound += ResetCriticalHit;
+    }
+
+    private void OnDisable()
+    {
+        PaddleBounce -= ResetCriticalHit;
+        GameManager.StartedRound -= ResetCriticalHit;
     }
     #endregion
 }

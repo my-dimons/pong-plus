@@ -1,10 +1,13 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class ColorPaletteManager : MonoBehaviour
 {
     public static ColorPaletteManager Instance { get; private set; }
+    public static event Action ThemeChanged;
+
     public ColorTheme theme;
     public List<ColorTheme> availableThemes = new();
 
@@ -26,8 +29,6 @@ public class ColorPaletteManager : MonoBehaviour
         availableThemes = Utils.LoadScriptableObjects<ColorTheme>("Themes").ToList<ColorTheme>();
     }
 
-    public delegate void OnThemeChanged();
-    public static event OnThemeChanged ThemeChanged;
 
     // COLORS
     static readonly Color green     = Utils.HexToColor("#5fff76");
