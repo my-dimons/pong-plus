@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public static class Utils
@@ -38,4 +39,45 @@ public static class Utils
 
         return loadedObjects;
     }
+
+    #region Pong Specific
+    public static List<PongBall> GetAllPongBalls()
+    {
+        List<PongBall> balls = new();
+
+        foreach (GameObject ball in GameObject.FindGameObjectsWithTag("PongBall"))
+        {
+            balls.Add(ball.GetComponent<PongBall>());
+        }
+
+        return balls;
+    }
+
+    public static List<Paddle> GetSpecificSidePaddles(PaddleManager.PaddleSides side)
+    {
+        List<Paddle> targetPaddles = new List<Paddle>();
+
+        foreach (Paddle paddleObj in GetAllPaddles())
+        {
+            if (paddleObj.paddleSide == side)
+            {
+                targetPaddles.Add(paddleObj);
+            }
+        }
+
+        return targetPaddles;
+    }
+
+    public static List<Paddle> GetAllPaddles()
+    {
+        List<Paddle> paddles = new List<Paddle>();
+
+        foreach (GameObject paddleObj in GameObject.FindGameObjectsWithTag("Paddle"))
+        {
+            paddles.Add(paddleObj.GetComponent<Paddle>());
+        }
+
+        return paddles;
+    }
+    #endregion
 }

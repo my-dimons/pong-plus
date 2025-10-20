@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeName: decrease other paddle speed
   description: slow other paddle
   upgradeType: 1
-  weight: 0.6
+  weight: 0.3
   enabled: 1
   changeOtherPaddle: 1
   speedChange: -30

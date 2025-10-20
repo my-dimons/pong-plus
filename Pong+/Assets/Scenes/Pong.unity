@@ -287,8 +287,8 @@ MonoBehaviour:
   minimumBaseSpeed: 3
   maximumBaseSpeed: 10
   criticalHit: 0
-  hitCriticalThisBounce: 0
   criticalHitMultiplier: 1
+  exampleBool: 0
 --- !u!50 &271640187
 Rigidbody2D:
   serializedVersion: 5

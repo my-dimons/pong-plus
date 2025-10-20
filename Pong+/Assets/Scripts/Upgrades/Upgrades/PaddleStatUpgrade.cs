@@ -7,6 +7,7 @@ public class PaddleStatUpgrade : Upgrade
     [Space(10)]
     [Header("Paddle Stat Changes")]
     public bool changeOtherPaddle;
+
     [Header("Changes")]
     public float speedChange;
     public float heightChange;
@@ -25,7 +26,7 @@ public class PaddleStatUpgrade : Upgrade
         foreach (Paddle paddle in GetTargetPaddles(side))
         {
             if (IsUpgradeAppliable(paddle))
-            {
+            {  
                 return true;
             }
         }
@@ -35,25 +36,25 @@ public class PaddleStatUpgrade : Upgrade
 
     private bool IsUpgradeAppliable(Paddle paddle)
     {
-        return paddle.CanChangePaddleSpeed(speedChange) && paddle.CanChangePaddleHeight(heightChange);
+        return paddle.CanChangePaddleSpeed(speedChange) 
+            && paddle.CanChangePaddleHeight(heightChange);
     }
 
     private bool IsTargetPaddle(Paddle paddle, PaddleManager.PaddleSides side)
     {
-        return (paddle.paddleSide == side && !changeOtherPaddle) || (changeOtherPaddle && paddle.paddleSide != side);
+        bool sameSide = paddle.paddleSide == side;
+        return changeOtherPaddle? !sameSide : sameSide;
     }
 
     private List<Paddle> GetTargetPaddles(PaddleManager.PaddleSides side)
     {
         List<Paddle> targetPaddles = new List<Paddle>();
 
-        foreach (GameObject paddleObj in GameObject.FindGameObjectsWithTag("Paddle"))
+        foreach (Paddle paddle in Utils.GetAllPaddles())
         {
-            Paddle paddleComponent = paddleObj.GetComponent<Paddle>();
-
-            if (IsTargetPaddle(paddleComponent, side))
+            if (IsTargetPaddle(paddle, side))
             {
-                targetPaddles.Add(paddleComponent);
+                targetPaddles.Add(paddle);
             }
         }
 

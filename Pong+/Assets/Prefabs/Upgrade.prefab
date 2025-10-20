@@ -143,7 +143,7 @@ MonoBehaviour:
   useTheme: 1
   currentColorType: 1
   alpha: 1
-  color: 0
+  overidedColor: 0
 --- !u!1 &2418280339508402288
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,8 +234,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
   m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
+    m_Mode: 1
+    m_WrapAround: 1
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

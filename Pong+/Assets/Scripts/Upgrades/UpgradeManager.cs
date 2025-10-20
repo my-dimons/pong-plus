@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -100,12 +102,13 @@ public class UpgradeManager : MonoBehaviour
             Upgrade randomUpgrade = upgrades[Random.Range(0, upgrades.Count)];
 
             // use upgrade weight to check if it should add the upgrade
-            float chance = Random.Range(0, 1);
+            float chance = Random.Range(0f, 1f);
 
             bool ableToApply = randomUpgrade.AbleToApplyUpgrade(paddleSide) && randomUpgrade.enabled;
             bool alreadyGotten = alreadyGottenUpgrades.Contains(randomUpgrade);
+            bool inRandomRange = chance <= randomUpgrade.weight;
 
-            if (chance <= randomUpgrade.weight && !alreadyGotten && ableToApply)
+            if (inRandomRange && !alreadyGotten && ableToApply)
             {
                 return randomUpgrade;
             }

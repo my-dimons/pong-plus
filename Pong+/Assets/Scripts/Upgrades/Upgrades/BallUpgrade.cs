@@ -19,9 +19,12 @@ public class BallUpgrade : Upgrade
 
     public override bool AbleToApplyUpgrade(PaddleManager.PaddleSides side)
     {
-        if (IsUpgradeAppliable(GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>()))
+        foreach (PongBall ball in Utils.GetAllPongBalls())
         {
-            return true;
+            if (IsUpgradeAppliable(ball))
+            {
+                return true;
+            }
         }
 
         return false;

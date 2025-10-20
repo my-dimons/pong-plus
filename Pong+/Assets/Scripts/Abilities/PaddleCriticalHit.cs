@@ -14,7 +14,7 @@ public class PaddleCriticalHit : Ability
 
     private void SetBallListeners(bool subscribe)
     {
-        foreach (PongBall ball in GetAllPongBalls())
+        foreach (PongBall ball in Utils.GetAllPongBalls())
         {
             if (subscribe)
                 ball.PaddleBounce += HandleBallPaddleHit;
@@ -35,22 +35,9 @@ public class PaddleCriticalHit : Ability
             {
                 Debug.Log("Ball Critical Hit!");
 
-                ball.hitCriticalThisBounce = true;
                 ball.criticalHit = true;
                 ball.criticalHitMultiplier = criticalHitMultiplier;
             }
         }
-    }
-
-    private List<PongBall> GetAllPongBalls()
-    {
-        List<PongBall> balls = new();
-
-        foreach (GameObject ball in GameObject.FindGameObjectsWithTag("PongBall"))
-        {
-            balls.Add(ball.GetComponent<PongBall>());
-        }
-
-        return balls;
     }
 }

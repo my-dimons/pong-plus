@@ -28,7 +28,6 @@ public class PongBall : MonoBehaviour
 
     [Header("Abilites")]
     public bool criticalHit;
-    [HideInInspector] public bool hitCriticalThisBounce;
 
     public static readonly float CRITICAL_HIT_DEFAULT_MULTIPLIER = 1f;
     public float criticalHitMultiplier = 1f;
@@ -195,11 +194,7 @@ public class PongBall : MonoBehaviour
     #region Critical Hit
     void ResetCriticalHit(PaddleManager.PaddleSides side, PongBall ball)
     {   
-        if (hitCriticalThisBounce)
-        {
-            hitCriticalThisBounce = false;
-        } 
-        else if (criticalHit)
+        if (criticalHit)
         {
             criticalHit = false;
             criticalHitMultiplier = CRITICAL_HIT_DEFAULT_MULTIPLIER;

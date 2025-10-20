@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeName: add paddle size
   description: grow paddle
   upgradeType: 0
-  weight: 0.3
+  weight: 0.6
   enabled: 1
   changeOtherPaddle: 0
   speedChange: 0

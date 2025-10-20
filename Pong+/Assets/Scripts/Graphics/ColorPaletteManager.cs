@@ -17,7 +17,7 @@ public class ColorPaletteManager : MonoBehaviour
         {
             Debug.LogWarning("More than 2 instances of the ColorPaletteManager class were found! Deleting duplicate");
             Destroy(this);
-        }
+        } 
         else
         {
             Instance = this;
