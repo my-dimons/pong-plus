@@ -3,11 +3,11 @@ CORE
 ✅ add scoring/goals
 ✅ add score stuffs
 ✅ make functions to restart round
-❌ upgrades
-❌ special abilities
+✅ upgrades
+✅ special abilities
 
 EXTRA
-❌ particles
+✅ particles
 ❌ SFX
 ❌ main menu
 ❌ settings screen
@@ -15,7 +15,7 @@ EXTRA
 ❌ trails
 ✅ special sprites
 
-❌ make score manager a singleton
+✅ make score manager a singleton
 
 FIXES
 - idk code cleanup?
