@@ -14,7 +14,7 @@ public class PaddleCriticalHitUpgrade : Upgrade
 
     // max/min values
     public static float maxCriticalHitChance = 0.3f;
-    public static float maxCriticalHitMultiplier = 2f;
+    public static float maxCriticalHitMultiplier = 1.8f;
     public override void ApplyUpgrade(PaddleManager.PaddleSides side)
     {
         foreach (Paddle paddle in GetTargetPaddles(side))
@@ -53,7 +53,7 @@ public class PaddleCriticalHitUpgrade : Upgrade
             {
                 // check MAX CRIT CHANCE, and MAX CRIT MULT
                 bool upgradeValuesInRange = paddle.GetComponent<PaddleCriticalHit>().criticalHitChance < maxCriticalHitChance ||
-                                            paddle.GetComponent<PaddleCriticalHit>().criticalHitMultiplier < maxCriticalHitMultiplier;
+                paddle.GetComponent<PaddleCriticalHit>().criticalHitMultiplier < maxCriticalHitMultiplier;
 
                 if (upgradeValuesInRange)
                     return true;

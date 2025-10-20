@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeName: inc crit chance
   description: increase crit mult
   upgradeType: 2
-  weight: 0.2
+  weight: 0.5
   enabled: 1
   addCriticalHitAbility: 0
   criticalHitChance: 0

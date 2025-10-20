@@ -142,9 +142,12 @@ public class PongBall : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calculate direction to reflect
+    /// </summary>
+    /// <param name="other">Gameobject to calculate bounce off of</param>
     private void CalculateBounce(Collision2D other)
     {
-        // calculate direction to reflect
         float y = HitFactor(transform.position, other.transform.position, other.collider.bounds.size.y);
 
         float xDir = Mathf.Sign(transform.position.x - other.transform.position.x);
