@@ -108,4 +108,6 @@ public static class Utils
         return paddles;
     }
     #endregion
+
+    public static Vector2 GetInbetweenPoint(Vector2 x, Vector2 y) { return (x + y) / 2; }
 }

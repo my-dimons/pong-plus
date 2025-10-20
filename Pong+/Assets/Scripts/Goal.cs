@@ -21,9 +21,11 @@ public class Goal : MonoBehaviour
             }
 
             AudioManager.PlayAudioClip(goalSFX);
+
+            Vector2 inbetweenPos = Utils.GetInbetweenPoint(new Vector2(transform.position.x, other.gameObject.transform.position.x), other.gameObject.transform.position);
             Utils.SpawnBurstParticle(
                 goalParticleVFX, 
-                other.transform.position, 
+                inbetweenPos, 
                 color: ColorPaletteManager.Instance.GetColorFromPalette(other.gameObject.GetComponent<ColorPalette>().overidedColor));
 
             StartCoroutine(GameManager.Instance.RestartRound());

@@ -111,7 +111,6 @@ public class PongBall : MonoBehaviour
             PaddleBounce?.Invoke(other.gameObject.GetComponent<Paddle>().paddleSide, this);
             BallBounce?.Invoke(this);
 
-
             if (criticalHit)
             {
                 AudioManager.PlayAudioClip(criticalBounceSFX);
@@ -122,7 +121,14 @@ public class PongBall : MonoBehaviour
             }
 
             Color color = ColorPaletteManager.Instance.GetColorFromPalette(GetComponent<ColorPalette>().overidedColor);
-            Utils.SpawnBurstParticle(paddleBounceParticlesPrefab, transform.position, Quaternion.identity.eulerAngles, color);
+
+            Vector3 particlePos = (this.transform.position + other.gameObject.transform.position) / 2;
+
+            Vector2 inbetweenPos = Utils.GetInbetweenPoint(transform.position, new Vector2(other.gameObject.transform.position.x, transform.position.y));
+            Utils.SpawnBurstParticle(paddleBounceParticlesPrefab,
+                inbetweenPos,
+                Quaternion.identity.eulerAngles,
+                color);
 
             CalculateBounce(other);
 

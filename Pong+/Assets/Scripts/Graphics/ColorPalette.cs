@@ -32,6 +32,18 @@ public class ColorPalette : MonoBehaviour
         {
             GetComponent<Image>().color = color;
         }
+        else if (GetComponent<ParticleSystem>())
+        {
+            if (!this.TryGetComponent<ParticleSystem>(out var ps))
+            {
+                Debug.LogWarning("Prefab has no ParticleSystem component!");
+                return;
+            }
+
+            // set color
+            var main = ps.main;
+            main.startColor = color;
+        }
         else if (GetComponent<Camera>())
         {
             Camera.main.backgroundColor = color;
