@@ -125,6 +125,7 @@ public class PongBall : MonoBehaviour
             Vector3 particlePos = (this.transform.position + other.gameObject.transform.position) / 2;
 
             Vector2 inbetweenPos = Utils.GetInbetweenPoint(transform.position, new Vector2(other.gameObject.transform.position.x, transform.position.y));
+            
             Utils.SpawnBurstParticle(paddleBounceParticlesPrefab,
                 inbetweenPos,
                 Quaternion.identity.eulerAngles,
