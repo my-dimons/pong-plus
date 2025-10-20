@@ -33,7 +33,13 @@ public class PongBall : MonoBehaviour
     public float criticalHitMultiplier = 1f;
 
     [Space(8)]
-    public bool exampleBool;
+    [Header("SFX")]
+    public AudioClip normalBounceSFX;
+    public AudioClip criticalBounceSFX;
+
+    [Header("VFX")]
+    public GameObject paddleBounceParticlesPrefab;
+    public GameObject wallBounceParticlesPrefab;
 
     // EVENTS
     public event Action<PaddleManager.PaddleSides, PongBall> PaddleBounce;
@@ -104,6 +110,19 @@ public class PongBall : MonoBehaviour
         {
             PaddleBounce?.Invoke(other.gameObject.GetComponent<Paddle>().paddleSide, this);
             BallBounce?.Invoke(this);
+
+
+            if (criticalHit)
+            {
+                AudioManager.PlayAudioClip(criticalBounceSFX);
+            }
+            else
+            {
+                AudioManager.PlayAudioClip(normalBounceSFX);
+            }
+
+            Color color = ColorPaletteManager.Instance.GetColorFromPalette(GetComponent<ColorPalette>().overidedColor);
+            Utils.SpawnBurstParticle(paddleBounceParticlesPrefab, transform.position, Quaternion.identity.eulerAngles, color);
 
             CalculateBounce(other);
 

@@ -40,6 +40,34 @@ public static class Utils
         return loadedObjects;
     }
 
+    public static void SpawnBurstParticle(GameObject particlePrefab, Vector3 position, Vector3 rotation = default, Color color = default)
+    {
+        if (rotation == default) rotation = Vector3.zero;
+
+        if (color == default) color = Color.white;
+
+        // Instantiate the particle prefab
+        GameObject particleInstance = UnityEngine.Object.Instantiate(particlePrefab, position, Quaternion.Euler(rotation));
+
+        // Get the ParticleSystem component
+        if (!particleInstance.TryGetComponent<ParticleSystem>(out var ps))
+        {
+            Debug.LogWarning("Prefab has no ParticleSystem component!");
+            UnityEngine.Object.Destroy(particleInstance);
+            return;
+        }
+
+        // set color
+        var main = ps.main;
+        main.startColor = color;
+
+        // Play it (in case it's not already set to play on awake)
+        ps.Play();
+
+        // Schedule destruction when it's done
+        UnityEngine.Object.Destroy(particleInstance, ps.main.duration + ps.main.startLifetime.constantMax);
+    }
+
     #region Pong Specific
     public static List<PongBall> GetAllPongBalls()
     {

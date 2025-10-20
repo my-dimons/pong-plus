@@ -8,7 +8,7 @@ public static class PaddleManager
 
     public static readonly float minimumPaddleHeight = 0.8f;
     public static readonly float maximumPaddleHeight = 2f;
-    public static readonly float minimumPaddleSpeed = 100f;
+    public static readonly float minimumPaddleSpeed = 280f;
 
     public enum PaddleSides
     {

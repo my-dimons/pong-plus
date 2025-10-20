@@ -15,6 +15,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int round;
     public bool pauseRound; // used for restarting round and upgrades
+    public int pauseTimeAfterUpgrades = 1;
+
+    [Header("SFX")]
+    public AudioClip startRoundSFX;
 
     private void Awake()
     {
@@ -46,7 +50,9 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(1); // wait before launching ball so player can prepare
+        yield return new WaitForSeconds(pauseTimeAfterUpgrades); // wait before launching ball so player can prepare
+
+        AudioManager.PlayAudioClip(startRoundSFX);
 
         ball.ResetSpeed();
         ball.LaunchBallRandomly();
