@@ -22,7 +22,7 @@ public class Goal : MonoBehaviour
 
             AudioManager.PlayAudioClip(goalSFX);
 
-            Vector2 inbetweenPos = Utils.GetInbetweenPoint(new Vector2(transform.position.x, other.gameObject.transform.position.x), other.gameObject.transform.position);
+            Vector2 inbetweenPos = Utils.GetInbetweenPoint(new Vector2(transform.position.x, other.gameObject.transform.position.y), other.gameObject.transform.position);
             Utils.SpawnBurstParticle(
                 goalParticleVFX, 
                 inbetweenPos, 
