@@ -14,6 +14,7 @@ EXTRA
 ✅ post processing volume
 ❌ trails
 ✅ special sprites
+❌ screenshake
 
 ✅ make score manager a singleton
 
@@ -25,11 +26,13 @@ FIXES
 IDEAS
 --- 
 - Crit invert controls ❌
-- arrow where ball is going to go (at start) 
+- arrow where ball is going to go (at start) ✅
 - upgrade to increase score ✅
 - uncap ball size (when at max, but very rare) ❌
 - fake ball (seperate color)
 - every first hit is crit
+- screenshake
+- 
 - ability to allow more upgrade selections ✅
 
 - anti clipping (below/top)

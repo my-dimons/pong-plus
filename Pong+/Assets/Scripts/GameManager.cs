@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public static event Action StartedRound;
 
+    [Header("Spawning Ball")]
+    public GameObject predictionArrow;
+
     [Header("Upgrade Settings")]
     public bool spawnUpgrades = true;
 
@@ -34,6 +37,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        StartCoroutine(RestartRound());
+    }
+    
     public IEnumerator RestartRound()
     {
         round++;
@@ -44,6 +52,10 @@ public class GameManager : MonoBehaviour
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
         ball.ResetPosition();
+        ball.GenerateRandomForce(ball.minInitialForce, ball.maxInitialForce);
+
+        predictionArrow.SetActive(true);
+        PositionBallPredictionArrow(ball.randomForceDirection);
 
         while (pauseRound)
         {
@@ -51,11 +63,12 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(pauseTimeAfterUpgrades); // wait before launching ball so player can prepare
-
+        Debug.Log("started round");
         AudioManager.PlayAudioClip(startRoundSFX);
 
         ball.ResetSpeed();
-        ball.LaunchBallRandomly();
+        ball.LaunchBall();
+        predictionArrow.SetActive(false);
 
 
         /* reset paddle pos
@@ -64,6 +77,14 @@ public class GameManager : MonoBehaviour
             paddle.GetComponent<Paddle>().OffsetPaddle();
         }
         */
+    }
+
+    private void PositionBallPredictionArrow(Vector2 forceDirection)
+    {
+        float rad = Mathf.Atan2(-forceDirection.y, -forceDirection.x);
+        float angle = rad * (180 / (float) Math.PI);
+
+        predictionArrow.transform.eulerAngles = new Vector3(0, 0, angle);
     }
 
     public static void RestartGame()

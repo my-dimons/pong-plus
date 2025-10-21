@@ -9,9 +9,11 @@ public class PongBall : MonoBehaviour
 
     [Tooltip("Used for the min and max of both the x and y axis on Start() AddForce()")]
     [Range(0, 1)]
-    [SerializeField] private float maxInitialForce;
+    public float maxInitialForce;
     [Range(0, 1)]
-    [SerializeField] private float minInitialForce;
+    public float minInitialForce;
+
+    [HideInInspector] public Vector2 randomForceDirection { get; private set; }
 
     [Space(5)]
 
@@ -76,10 +78,6 @@ public class PongBall : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-
-        ResetSpeed();
-        ResetPosition();
-        LaunchBallRandomly();
     }
 
     public void ResetPosition()
@@ -93,13 +91,16 @@ public class PongBall : MonoBehaviour
         speed = baseSpeed;
     }
 
-    public void LaunchBallRandomly()
+    /// <summary>
+    /// Dont forget to set random direction before! (Call "GenerateRandomForce(float, float)")
+    /// </summary>
+    public void LaunchBall()
     {
-        float randomX = GenerateRandomForce(minInitialForce, maxInitialForce);
-        float randomY = GenerateRandomForce(minInitialForce, maxInitialForce);
-
-        rb.linearVelocity = new Vector2(randomX, randomY) * speed;
+        rb.linearVelocity = randomForceDirection * speed;
+        Debug.Log("Launch ball with speed: " + (randomForceDirection * speed));
     }
+
+
     #endregion
 
     #region On Bounce/Collision
@@ -157,7 +158,7 @@ public class PongBall : MonoBehaviour
         rb.linearVelocity = dir * (speed * criticalHitMultiplier);
     }
 
-    float HitFactor(Vector2 ballPos, Vector2 racketPos, float racketHeight)
+    private float HitFactor(Vector2 ballPos, Vector2 racketPos, float racketHeight)
     {
         return (ballPos.y - racketPos.y) / racketHeight;
     }
@@ -168,16 +169,23 @@ public class PongBall : MonoBehaviour
     /// <param name="min">Clipping range</param>
     /// <param name="max">Random number input (-max, max)</param>
     /// <returns>A random number between -max and max, if the number is too low (using Math.abs) it sets it to min (negative or positive depending on output)</returns>
-    float GenerateRandomForce(float min, float max)
+    public void GenerateRandomForce(float min, float max)
     {
-        float num = UnityEngine.Random.Range(-max, max);
+        randomForceDirection = new(
+            MinMaxForce(UnityEngine.Random.Range(-max, max)),
+            MinMaxForce(UnityEngine.Random.Range(-max, max)));
 
-        if (Mathf.Abs(num) < min)
+        Debug.Log("Generated Random Force " + randomForceDirection);
+        // checks if force is below min, and if it is then sets it to min
+        float MinMaxForce(float x)
         {
-            num = Mathf.Sign(num) * min;
-        }
+            if (Mathf.Abs(x) < min)
+            {
+                x = Mathf.Sign(x) * min;
+            }
 
-        return num;
+            return x;
+        }
     }
     #endregion
 

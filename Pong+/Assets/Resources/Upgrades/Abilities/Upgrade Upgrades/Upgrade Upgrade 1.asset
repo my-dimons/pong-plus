@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63c3df6ecc7faa544b29a8d0fac621b9, type: 3}
-  m_Name: Upgrade Upgrade
+  m_Name: Upgrade Upgrade 1
   m_EditorClassIdentifier: Assembly-CSharp::IncreaseUpgradeAmountUpgrade
   image: {fileID: 21300000, guid: 53bff86fde6fe1b47b6f7a96402f20e0, type: 3}
   upgradeName: 
-  description: +1 upgrade selection
-  upgradeType: 3
-  weight: 0.03
+  description: -1 opponent upgrade
+  upgradeType: 1
+  weight: 0.005
   enabled: 1
-  otherSide: 0
-  amountOfNewUpgrades: 1
+  otherSide: 1
+  amountOfNewUpgrades: -1

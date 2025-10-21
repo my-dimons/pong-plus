@@ -14,6 +14,7 @@ public class UpgradeObject : MonoBehaviour
     [Space(8)]
     public Image image;
     public Image outline;
+    public GameObject coolParticles;
 
     [Header("Other")]
     public PaddleManager.PaddleSides paddleSide;
@@ -44,7 +45,26 @@ public class UpgradeObject : MonoBehaviour
 
     private void SetOutlineColor()
     {
+        // color
         outline.color = UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType);
+
+        // particles
+        if (upgrade.upgradeType == UpgradeManager.UpgradeType.uniqueAbility 
+         || upgrade.upgradeType == UpgradeManager.UpgradeType.ability)
+        {
+            if (!coolParticles.TryGetComponent<ParticleSystem>(out var ps))
+            {
+                Debug.LogWarning("Upgrade particles have no ParticleSystem component!");
+                return;
+            }
+
+            // set color
+            var main = ps.main;
+            main.startColor = UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType);
+
+            coolParticles.SetActive(true);
+        } else 
+            coolParticles.SetActive(false);
     }
 
     private void OnEnable()

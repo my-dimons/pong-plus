@@ -38,7 +38,7 @@ public class ColorPaletteManager : MonoBehaviour
     static readonly Color red       = Utils.HexToColor("#f94a5f");
     static readonly Color blue      = Utils.HexToColor("#4a53f9");
     static readonly Color yellow    = Utils.HexToColor("#f4ef61");
-    static readonly Color purple    = Utils.HexToColor("#ac55c6");
+    static readonly Color purple    = Utils.HexToColor("#f486ef");
 
     static readonly Color error     = Utils.HexToColor("#c604d1");
 
