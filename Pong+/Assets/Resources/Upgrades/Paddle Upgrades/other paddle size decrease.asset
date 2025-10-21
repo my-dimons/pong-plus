@@ -20,4 +20,4 @@ MonoBehaviour:
   enabled: 1
   changeOtherPaddle: 1
   speedChange: 0
-  heightChange: 0.5
+  heightChange: -0.3

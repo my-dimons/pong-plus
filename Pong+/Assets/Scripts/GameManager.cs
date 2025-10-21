@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections.ObjectModel;
 
 public class GameManager : MonoBehaviour
 {
@@ -41,11 +42,43 @@ public class GameManager : MonoBehaviour
     {
         StartCoroutine(RestartRound());
     }
-    
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.H) && !pauseRound)
+        {
+            StartCoroutine(ResetBall());
+            Debug.Log("Restarting round via input!");
+        }
+
+    }
+
+    /// <summary>
+    /// Resets ball position
+    /// </summary>
+    public IEnumerator ResetBall()
+    {
+        PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
+
+        ball.ResetPosition();
+        ball.GenerateRandomForce(ball.minInitialForce, ball.maxInitialForce);
+        predictionArrow.SetActive(true);
+        PositionBallPredictionArrow(ball.randomForceDirection);
+
+        yield return new WaitForSeconds(pauseTimeAfterUpgrades); // wait before launching ball so player can prepare
+
+        Debug.Log("started round");
+
+        AudioManager.PlayAudioClip(startRoundSFX);
+        predictionArrow.SetActive(false);
+
+        ball.ResetSpeed();
+        ball.LaunchBall();
+    }
+
     public IEnumerator RestartRound()
     {
         round++;
-
         StartedRound?.Invoke();
 
         GameObject[] paddles = GameObject.FindGameObjectsWithTag("Paddle");
@@ -53,7 +86,6 @@ public class GameManager : MonoBehaviour
 
         ball.ResetPosition();
         ball.GenerateRandomForce(ball.minInitialForce, ball.maxInitialForce);
-
         predictionArrow.SetActive(true);
         PositionBallPredictionArrow(ball.randomForceDirection);
 
@@ -63,14 +95,14 @@ public class GameManager : MonoBehaviour
         }
 
         yield return new WaitForSeconds(pauseTimeAfterUpgrades); // wait before launching ball so player can prepare
+
         Debug.Log("started round");
+
         AudioManager.PlayAudioClip(startRoundSFX);
+        predictionArrow.SetActive(false);
 
         ball.ResetSpeed();
         ball.LaunchBall();
-        predictionArrow.SetActive(false);
-
-
         /* reset paddle pos
         foreach (GameObject paddle in paddles)
         {
