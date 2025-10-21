@@ -24,9 +24,11 @@ public class Goal : MonoBehaviour
 
             Vector2 inbetweenPos = Utils.GetInbetweenPoint(new Vector2(transform.position.x, other.gameObject.transform.position.y), other.gameObject.transform.position);
             Utils.SpawnBurstParticle(
-                goalParticleVFX, 
-                inbetweenPos, 
+                goalParticleVFX,
+                inbetweenPos,
                 color: ColorPaletteManager.Instance.GetColorFromPalette(other.gameObject.GetComponent<ColorPalette>().overidedColor));
+                
+            Camera.main.GetComponent<CameraScript>().ScreenshakeFunction();
 
             StartCoroutine(GameManager.Instance.RestartRound());
 

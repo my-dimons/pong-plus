@@ -128,6 +128,7 @@ public class UpgradeManager : MonoBehaviour
 
     public void DespawnUpgrades()
     {
+        Camera.main.GetComponent<CameraScript>().ScreenshakeFunction(0.3f);
         if (spawnedUpgrades.Count <= 0) return;
 
         foreach (GameObject upg in spawnedUpgrades)
