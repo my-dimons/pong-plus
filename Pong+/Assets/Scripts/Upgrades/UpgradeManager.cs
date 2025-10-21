@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Xml.Serialization;
 
 public class UpgradeManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class UpgradeManager : MonoBehaviour
     {
         normal, // average upgrade
         detrimental, // bad upgrade (usually hurts other player)
-        ability // special upgrade that gives player an ability
+        ability, // upgrade that gives player an abilities stats
+        uniqueAbility // special upgrade that gives player a unique ability
     }
 
     [SerializeField] private List<Upgrade> upgrades = new();
@@ -25,7 +27,15 @@ public class UpgradeManager : MonoBehaviour
     [SerializeField] private float upgradeSpawningY;
 
     [SerializeField] private GameObject upgradePrefab;
-    [SerializeField] private int spawningUpgradeAmount;
+
+    [Space(8)]
+
+    [SerializeField] private int leftSpawningUpgradeAmount = 2;
+    [SerializeField] private int rightSpawningUpgradeAmount = 2;
+
+    [Space(4)]
+
+    public int maxUpgradeAmountPerPaddle = 3;
 
     private List<GameObject> spawnedUpgrades = new();
 
@@ -42,7 +52,7 @@ public class UpgradeManager : MonoBehaviour
             Instance = this;
         }
     }
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -61,6 +71,7 @@ public class UpgradeManager : MonoBehaviour
     {
         List<Upgrade> spawningUpgrades = new();
 
+        int spawningUpgradeAmount = paddleSide == PaddleManager.PaddleSides.left ? leftSpawningUpgradeAmount : rightSpawningUpgradeAmount;
         for (int i = 0; i < spawningUpgradeAmount; i++)
         {
             spawningUpgrades.Add(GetRandomUpgrade(paddleSide, spawningUpgrades));
@@ -127,6 +138,44 @@ public class UpgradeManager : MonoBehaviour
         // resume game
         Debug.Log("Finished picking upgrades, resuming game");
         GameManager.Instance.pauseRound = false;
+    }
+
+    public static Color GetColorFromUpgradeType(UpgradeType type)
+    {
+        Color color;
+        switch (type)
+        {
+            case UpgradeManager.UpgradeType.normal:
+                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.normalUpgradeColor);
+                break;
+            case UpgradeManager.UpgradeType.detrimental:
+                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.detrimentalUpgradeColor);
+                break;
+            case UpgradeManager.UpgradeType.ability:
+                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.abilityUpgradeColor);
+                break;
+            case UpgradeManager.UpgradeType.uniqueAbility:
+                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.uniqueAbilityUpgradeColor);
+                break;
+            default:
+                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.ColorPaletteEnum.error);
+                break;
+        }
+
+        return color;
+    }
+
+    public void IncreaseAvailableUpgradesAmount(PaddleManager.PaddleSides side, int amount)
+    {
+        if (side == PaddleManager.PaddleSides.left)
+            leftSpawningUpgradeAmount += amount;
+        else
+            rightSpawningUpgradeAmount += amount;
+    }
+
+    public int GetUpgradeAmount(PaddleManager.PaddleSides side)
+    {
+        return (side == PaddleManager.PaddleSides.left) ? leftSpawningUpgradeAmount : rightSpawningUpgradeAmount;
     }
 }
  

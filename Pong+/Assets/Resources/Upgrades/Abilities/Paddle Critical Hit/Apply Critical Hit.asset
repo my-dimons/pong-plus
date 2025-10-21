@@ -15,7 +15,7 @@ MonoBehaviour:
   image: {fileID: 21300000, guid: ae70c4dec14b85a4ea2d408dd25bf259, type: 3}
   upgradeName: apply crit hit
   description: unlock critical hit
-  upgradeType: 2
+  upgradeType: 3
   weight: 0.2
   enabled: 1
   addCriticalHitAbility: 1

@@ -17,6 +17,7 @@ public class ColorTheme : ScriptableObject
     public ColorPaletteManager.ColorPaletteEnum normalUpgradeColor;
     public ColorPaletteManager.ColorPaletteEnum detrimentalUpgradeColor = ColorPaletteManager.ColorPaletteEnum.red;
     public ColorPaletteManager.ColorPaletteEnum abilityUpgradeColor = ColorPaletteManager.ColorPaletteEnum.yellow;
+    public ColorPaletteManager.ColorPaletteEnum uniqueAbilityUpgradeColor = ColorPaletteManager.ColorPaletteEnum.purple;
 
     [Header("Ball")]
     public ColorPaletteManager.ColorPaletteEnum ballColor;

@@ -23,13 +23,13 @@ FIXES
 ❌✅
 
 IDEAS
----
-- Crit invert controls
-- arrow where ball is going to go (at start)
-- upgrade to increase score
-- uncap ball size (when at max, but very rare)
+--- 
+- Crit invert controls ❌
+- arrow where ball is going to go (at start) 
+- upgrade to increase score ✅
+- uncap ball size (when at max, but very rare) ❌
 - fake ball (seperate color)
 - every first hit is crit
-- ability to allow more upgrade selections
+- ability to allow more upgrade selections ✅
 
 - anti clipping (below/top)

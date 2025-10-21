@@ -44,25 +44,7 @@ public class UpgradeObject : MonoBehaviour
 
     private void SetOutlineColor()
     {
-        Color color;
-
-        switch (upgrade.upgradeType)
-        {
-            case UpgradeManager.UpgradeType.normal:
-                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.normalUpgradeColor);
-                break;
-            case UpgradeManager.UpgradeType.detrimental:
-                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.detrimentalUpgradeColor);
-                break;
-            case UpgradeManager.UpgradeType.ability:
-                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.Instance.theme.abilityUpgradeColor);
-                break;
-            default:
-                color = ColorPaletteManager.Instance.GetColorFromPalette(ColorPaletteManager.ColorPaletteEnum.error);
-                break;
-        }
-
-        outline.color = color; 
+        outline.color = UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType);
     }
 
     private void OnEnable()

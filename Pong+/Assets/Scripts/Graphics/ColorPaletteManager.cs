@@ -38,6 +38,7 @@ public class ColorPaletteManager : MonoBehaviour
     static readonly Color red       = Utils.HexToColor("#f94a5f");
     static readonly Color blue      = Utils.HexToColor("#4a53f9");
     static readonly Color yellow    = Utils.HexToColor("#f4ef61");
+    static readonly Color purple    = Utils.HexToColor("#ac55c6");
 
     static readonly Color error     = Utils.HexToColor("#c604d1");
 
@@ -52,6 +53,7 @@ public class ColorPaletteManager : MonoBehaviour
         blue,
         lightGrey,
         yellow,
+        purple,
         error
     }
 
@@ -81,6 +83,7 @@ public class ColorPaletteManager : MonoBehaviour
             ColorPaletteEnum.blue  => blue,
             ColorPaletteEnum.lightGrey  => lightGrey,
             ColorPaletteEnum.yellow  => yellow,
+            ColorPaletteEnum.purple  => purple,
             _ => error,
         };
     }
