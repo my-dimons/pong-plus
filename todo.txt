@@ -14,7 +14,7 @@ EXTRA
 ✅ post processing volume
 ❌ trails
 ✅ special sprites
-❌ screenshake
+✅ screenshake
 
 ✅ make score manager a singleton
 
@@ -31,7 +31,6 @@ IDEAS
 - uncap ball size (when at max, but very rare) ❌
 - fake ball (seperate color)
 - every first hit is crit
-- screenshake
 - 
 - ability to allow more upgrade selections ✅
 
