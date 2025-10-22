@@ -12,7 +12,7 @@ EXTRA
 ❌ main menu
 ❌ settings screen
 ✅ post processing volume
-❌ trails
+✅ trails
 ✅ special sprites
 ✅ screenshake
 

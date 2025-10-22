@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63c3df6ecc7faa544b29a8d0fac621b9, type: 3}
   m_Name: Upgrade Upgrade 1
   m_EditorClassIdentifier: Assembly-CSharp::IncreaseUpgradeAmountUpgrade
-  image: {fileID: 21300000, guid: 53bff86fde6fe1b47b6f7a96402f20e0, type: 3}
+  image: {fileID: 21300000, guid: d1ff01e048ad204408a4c346c0ad27e3, type: 3}
   upgradeName: 
   description: -1 opponent upgrade
   upgradeType: 1
