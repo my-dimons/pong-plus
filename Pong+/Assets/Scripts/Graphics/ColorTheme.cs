@@ -23,6 +23,9 @@ public class ColorTheme : ScriptableObject
     public ColorPaletteManager.ColorPaletteEnum ballColor;
     public ColorPaletteManager.ColorPaletteEnum ballCriticalColor;
 
+    public Gradient ballGradient;
+    public Gradient ballCriticalGradient;
+
     [Header("Msc")]
     public ColorPaletteManager.ColorPaletteEnum wallsColor;
     public ColorPaletteManager.ColorPaletteEnum textColor;

@@ -66,10 +66,12 @@ public class PongBall : MonoBehaviour
         if (criticalHit)
         {
             colorPalette.overidedColor = ColorPaletteManager.Instance.theme.ballCriticalColor;
+            GetComponent<TrailRenderer>().colorGradient = ColorPaletteManager.Instance.theme.ballCriticalGradient; 
         }
         else
         {
             colorPalette.overidedColor = ColorPaletteManager.Instance.theme.ballColor;
+            GetComponent<TrailRenderer>().colorGradient = ColorPaletteManager.Instance.theme.ballGradient; 
         }
     }
 
