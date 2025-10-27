@@ -84,13 +84,17 @@ public class PongBall : MonoBehaviour
 
     public void ResetPosition()
     {
-        rb.linearVelocity = Vector2.zero;
-        transform.position = Vector2.zero;
+        if (rb.linearVelocity != Vector2.zero)
+            rb.linearVelocity = Vector2.zero;
+
+        if (transform.position != Vector3.zero)
+            transform.position = Vector2.zero;
     }
 
     public void ResetSpeed()
     {
-        speed = baseSpeed;
+        if (speed != baseSpeed)
+            speed = baseSpeed;
     }
 
     /// <summary>
@@ -125,12 +129,10 @@ public class PongBall : MonoBehaviour
 
             Color color = ColorPaletteManager.Instance.GetColorFromPalette(GetComponent<ColorPalette>().overidedColor);
 
-            Vector3 particlePos = (this.transform.position + other.gameObject.transform.position) / 2;
-
-            Vector2 inbetweenPos = Utils.GetInbetweenPoint(transform.position, new Vector2(other.gameObject.transform.position.x, transform.position.y));
+            Vector3 particlePos = (other.GetContact(0).point + other.GetContact(1).point) / 2; 
 
             Utils.SpawnBurstParticle(paddleBounceParticlesPrefab,
-                inbetweenPos,
+                particlePos,
                 Quaternion.identity.eulerAngles,
                 color);
                 

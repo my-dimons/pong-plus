@@ -10,7 +10,7 @@ public class Goal : MonoBehaviour
     [Header("VFX")]
     public GameObject goalParticleVFX;
 
-    private void OnTriggerEnter2D(Collider2D other) 
+    private void OnCollisionEnter2D(Collision2D other) 
     {
         if (other.gameObject.CompareTag("PongBall"))
         {
@@ -22,10 +22,11 @@ public class Goal : MonoBehaviour
 
             AudioManager.PlayAudioClip(goalSFX);
 
-            Vector2 inbetweenPos = Utils.GetInbetweenPoint(new Vector2(transform.position.x, other.gameObject.transform.position.y), other.gameObject.transform.position);
+            Vector3 particlePos = (other.GetContact(0).point + other.GetContact(1).point) / 2;
+
             Utils.SpawnBurstParticle(
                 goalParticleVFX,
-                inbetweenPos,
+                particlePos,
                 color: ColorPaletteManager.Instance.GetColorFromPalette(other.gameObject.GetComponent<ColorPalette>().overidedColor));
                 
             Camera.main.GetComponent<CameraScript>().ScreenshakeFunction();

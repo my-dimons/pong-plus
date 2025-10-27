@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private int round;
     public bool pauseRound; // used for restarting round and upgrades
+    bool resetingBall;
     public int pauseTimeAfterUpgrades = 1;
 
     [Header("SFX")]
@@ -45,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H) && !pauseRound)
+        if (Input.GetKeyDown(KeyCode.H) && !resetingBall)
         {
             StartCoroutine(ResetBall());
             Debug.Log("Restarting round via input!");
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public IEnumerator ResetBall()
     {
+        resetingBall = true;
+
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
         ball.ResetPosition();
@@ -74,10 +77,14 @@ public class GameManager : MonoBehaviour
 
         ball.ResetSpeed();
         ball.LaunchBall();
+
+        resetingBall = false;
     }
 
     public IEnumerator RestartRound()
     {
+        resetingBall = true;
+
         round++;
         StartedRound?.Invoke();
 
@@ -91,6 +98,7 @@ public class GameManager : MonoBehaviour
 
         while (pauseRound)
         {
+            ball.ResetPosition();
             yield return null;
         }
 
@@ -109,6 +117,8 @@ public class GameManager : MonoBehaviour
             paddle.GetComponent<Paddle>().OffsetPaddle();
         }
         */
+
+        resetingBall = false;
     }
 
     private void PositionBallPredictionArrow(Vector2 forceDirection)
