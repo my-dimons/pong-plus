@@ -9,6 +9,9 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
 
+    public AudioClip normalUpgradeSelection;
+    public AudioClip specialUpgradeSelection;
+
     public enum UpgradeType
     {
         normal, // average upgrade

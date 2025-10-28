@@ -26,5 +26,14 @@ public abstract class Upgrade : ScriptableObject
     {
         Debug.Log("Applied Upgrade: " + upgradeName);
         UpgradeManager.Instance.DespawnUpgrades();
+
+        if (upgradeType == UpgradeManager.UpgradeType.normal || upgradeType == UpgradeManager.UpgradeType.detrimental)
+        {
+            AudioManager.PlayAudioClip(UpgradeManager.Instance.normalUpgradeSelection);
+        }
+        else
+        {
+            AudioManager.PlayAudioClip(UpgradeManager.Instance.specialUpgradeSelection);
+        }
     }
 }

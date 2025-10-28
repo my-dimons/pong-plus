@@ -290,8 +290,10 @@ MonoBehaviour:
   maximumBaseSpeed: 10
   criticalHit: 0
   criticalHitMultiplier: 1
-  normalBounceSFX: {fileID: 0}
-  criticalBounceSFX: {fileID: 0}
+  normalBounceSFX: {fileID: 8300000, guid: 05f9cf658e1588e4b87dc9a75bb96499, type: 3}
+  criticalBounceSFX: {fileID: 8300000, guid: c23d5b7157412f145b2804b20b5a3821, type: 3}
+  wallBounceSFX: {fileID: 8300000, guid: 05f9cf658e1588e4b87dc9a75bb96499, type: 3}
+  launchSFX: {fileID: 8300000, guid: c22d89da30f1ee54ba7e9b6d8e579d3d, type: 3}
   paddleBounceParticlesPrefab: {fileID: 8446668369009109025, guid: fcb0ddfe4328919d38b6c68579ee9142, type: 3}
   wallBounceParticlesPrefab: {fileID: 8446668369009109025, guid: fcb0ddfe4328919d38b6c68579ee9142, type: 3}
 --- !u!50 &271640187
@@ -2271,7 +2273,7 @@ Transform:
   m_GameObject: {fileID: 1523875866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.31, y: 0, z: 0}
+  m_LocalPosition: {x: 0.495, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3210,7 +3212,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -7182,6 +7184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79e5fb4470d255d57aa508f909d125fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
+  normalUpgradeSelection: {fileID: 8300000, guid: a7db5578b9bb8354e8648b593d690f3f, type: 3}
+  specialUpgradeSelection: {fileID: 8300000, guid: a46b78af8fa48ce43810ad5c66870954, type: 3}
   upgrades: []
   spawningUpgradeParent: {fileID: 1441881058}
   upgradeSpawningRange: 6
@@ -7218,7 +7222,7 @@ Transform:
   m_GameObject: {fileID: 1592614941}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.42, y: 0, z: 0}
+  m_LocalPosition: {x: -0.485, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8157,7 +8161,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 2
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -12499,7 +12503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goal
   goalSide: 1
-  goalSFX: {fileID: 0}
+  goalSFX: {fileID: 8300000, guid: 4841fa31eed4a1d4c91029a5a1c41e22, type: 3}
   goalParticleVFX: {fileID: 7304082955192429483, guid: f57bb78bde7c362f6a5e02f559716d2f, type: 3}
 --- !u!114 &1866162218
 MonoBehaviour:
@@ -12917,7 +12921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Goal
   goalSide: 0
-  goalSFX: {fileID: 0}
+  goalSFX: {fileID: 8300000, guid: 4841fa31eed4a1d4c91029a5a1c41e22, type: 3}
   goalParticleVFX: {fileID: 7304082955192429483, guid: f57bb78bde7c362f6a5e02f559716d2f, type: 3}
 --- !u!114 &2024757877
 MonoBehaviour:

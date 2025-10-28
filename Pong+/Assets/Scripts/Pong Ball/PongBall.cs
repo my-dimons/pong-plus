@@ -38,6 +38,9 @@ public class PongBall : MonoBehaviour
     [Header("SFX")]
     public AudioClip normalBounceSFX;
     public AudioClip criticalBounceSFX;
+    [Space(8)]
+    public AudioClip wallBounceSFX;
+    public AudioClip launchSFX;
 
     [Header("VFX")]
     public GameObject paddleBounceParticlesPrefab;
@@ -104,6 +107,8 @@ public class PongBall : MonoBehaviour
     {
         rb.linearVelocity = randomForceDirection * speed;
         Debug.Log("Launch ball with speed: " + (randomForceDirection * speed));
+
+        AudioManager.PlayAudioClip(launchSFX);
     }
 
 
@@ -147,6 +152,7 @@ public class PongBall : MonoBehaviour
         {
             BallBounce?.Invoke(this);
             WallBounce?.Invoke(this);
+            AudioManager.PlayAudioClip(wallBounceSFX, 0.7f);
         }
     }
 
