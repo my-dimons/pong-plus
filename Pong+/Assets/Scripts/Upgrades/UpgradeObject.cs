@@ -74,8 +74,6 @@ public class UpgradeObject : MonoBehaviour
 
     public void ClaimParticles()
     {
-        Camera.main.ScreenToWorldPoint(transform.position);
-        
         Utils.SpawnBurstParticle(claimParticles, transform.position, Vector3.zero, UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType));
     }
 
