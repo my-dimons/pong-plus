@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Runtime.CompilerServices;
 
 public class UpgradeObject : MonoBehaviour
 {
@@ -14,7 +15,10 @@ public class UpgradeObject : MonoBehaviour
     [Space(8)]
     public Image image;
     public Image outline;
+    [Space(8)]
     public GameObject coolParticles;
+    public GameObject claimParticles;
+    public Canvas canvas;
 
     [Header("Other")]
     public PaddleManager.PaddleSides paddleSide;
@@ -22,7 +26,6 @@ public class UpgradeObject : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
         SetUI();
     }
 
@@ -32,6 +35,7 @@ public class UpgradeObject : MonoBehaviour
         {
             upgrade.ApplyUpgrade(paddleSide);
             upgrade.AppliedUpgrade();
+            ClaimParticles();
         });
 
         SetOutlineColor();
@@ -49,7 +53,7 @@ public class UpgradeObject : MonoBehaviour
         outline.color = UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType);
 
         // particles
-        if (upgrade.upgradeType == UpgradeManager.UpgradeType.uniqueAbility 
+        if (upgrade.upgradeType == UpgradeManager.UpgradeType.uniqueAbility
          || upgrade.upgradeType == UpgradeManager.UpgradeType.ability)
         {
             if (!coolParticles.TryGetComponent<ParticleSystem>(out var ps))
@@ -63,8 +67,16 @@ public class UpgradeObject : MonoBehaviour
             main.startColor = UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType);
 
             coolParticles.SetActive(true);
-        } else 
+        }
+        else
             coolParticles.SetActive(false);
+    }
+
+    public void ClaimParticles()
+    {
+        Camera.main.ScreenToWorldPoint(transform.position);
+        
+        Utils.SpawnBurstParticle(claimParticles, transform.position, Vector3.zero, UpgradeManager.GetColorFromUpgradeType(upgrade.upgradeType));
     }
 
     private void OnEnable()

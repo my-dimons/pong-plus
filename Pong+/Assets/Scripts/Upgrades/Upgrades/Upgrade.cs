@@ -35,5 +35,7 @@ public abstract class Upgrade : ScriptableObject
         {
             AudioManager.PlayAudioClip(UpgradeManager.Instance.specialUpgradeSelection);
         }
+
+        
     }
 }
