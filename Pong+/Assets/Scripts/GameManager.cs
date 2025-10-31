@@ -92,6 +92,7 @@ public class GameManager : MonoBehaviour
         PongBall ball = GameObject.FindGameObjectWithTag("PongBall").GetComponent<PongBall>();
 
         ball.ResetPosition();
+        ball.ResetCriticalHit();
         ball.GenerateRandomForce(ball.minInitialForce, ball.maxInitialForce);
         predictionArrow.SetActive(true);
         PositionBallPredictionArrow(ball.randomForceDirection);

@@ -25,6 +25,7 @@ public class PongBall : MonoBehaviour
     [SerializeField] private float extraSpeedOnBounce;
     [Space(5)]
     [SerializeField] private float minimumSize;
+    [SerializeField] private float maximumSize = 6;
     [SerializeField] private float minimumBaseSpeed = 0.1f;
     [SerializeField] private float maximumBaseSpeed = 15f;
 
@@ -234,7 +235,8 @@ public class PongBall : MonoBehaviour
 
     public bool CanChangeSize(float amount)
     {
-        return ((transform.localScale.x + transform.localScale.y) / 2) + amount > minimumSize;
+        float num = ((transform.localScale.x + transform.localScale.y) / 2) + amount;
+        return num > minimumSize && num < maximumSize;
     }
     #endregion
 
@@ -249,7 +251,7 @@ public class PongBall : MonoBehaviour
             criticalHitMultiplier = CRITICAL_HIT_DEFAULT_MULTIPLIER;
         }
     }
-    void ResetCriticalHit()
+    public void ResetCriticalHit()
     {
         criticalHit = false;
         criticalHitMultiplier = CRITICAL_HIT_DEFAULT_MULTIPLIER;
