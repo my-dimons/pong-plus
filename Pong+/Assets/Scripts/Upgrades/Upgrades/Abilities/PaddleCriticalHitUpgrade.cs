@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.VirtualTexturing.Debugging;
 
 [CreateAssetMenu(fileName = "Upgrade", menuName = "Upgrade/Ability/Critical Hit Ability", order = 0)]
 public class PaddleCriticalHitUpgrade : Upgrade

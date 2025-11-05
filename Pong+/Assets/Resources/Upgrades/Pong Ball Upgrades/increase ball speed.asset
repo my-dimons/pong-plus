@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeName: increase ball speed
   description: speed ball up
   upgradeType: 0
-  weight: 0.5
+  weight: 0.3
   enabled: 1
-  speedChange: 2
+  speedChange: 1
   sizeChange: 0

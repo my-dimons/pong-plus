@@ -282,10 +282,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PongBall
   maxInitialForce: 1
   minInitialForce: 0.7
-  baseSpeed: 5
+  baseSpeed: 8
   speed: 0
-  extraSpeedOnBounce: 0.2
+  extraSpeedOnBounce: 0.25
   minimumSize: 0.1
+  maximumSize: 6
   minimumBaseSpeed: 4
   maximumBaseSpeed: 10
   criticalHit: 0
@@ -1579,7 +1580,7 @@ MonoBehaviour:
   controlType: 0
   paddleSide: 0
   uselessVariable: 0
-  paddleSpeed: 260
+  paddleSpeed: 300
 --- !u!212 &1073051423
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1953,7 +1954,7 @@ MonoBehaviour:
   controlType: 0
   paddleSide: 1
   uselessVariable: 0
-  paddleSpeed: 260
+  paddleSpeed: 300
 --- !u!212 &1128438646
 SpriteRenderer:
   m_ObjectHideFlags: 0

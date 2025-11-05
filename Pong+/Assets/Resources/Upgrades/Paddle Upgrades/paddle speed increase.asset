@@ -16,7 +16,7 @@ MonoBehaviour:
   upgradeName: add paddle speed
   description: faster paddle
   upgradeType: 0
-  weight: 0.6
+  weight: 1
   enabled: 1
   changeOtherPaddle: 0
   speedChange: 60
