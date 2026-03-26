@@ -91,7 +91,8 @@ public class UpgradeManager : MonoBehaviour {
       // use upgrade weight to check if it should add the upgrade
       float chance = Random.Range(0f, 1f);
 
-      bool ableToApply = randomUpgrade.AbleToApplyUpgrade(paddleSide) && randomUpgrade.enabled;
+      bool ableToApply = randomUpgrade.AbleToApplyUpgrade(paddleSide)
+        && randomUpgrade.enabled;
       bool alreadyGotten = alreadyGottenUpgrades.Contains(randomUpgrade);
       bool inRandomRange = chance <= randomUpgrade.weight;
 

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 
   [Header("Upgrade Settings")]
   public bool spawnUpgrades = true;
+  public bool spawnScoreUpgrades = true;
 
   [Space(8)]
 

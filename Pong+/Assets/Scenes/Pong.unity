@@ -1727,7 +1727,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793bbc0f8d0e25944a36a7a7bae4f66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorPalette
-  useTheme: 1
+  useTheme: 0
   currentColorType: 2
   alpha: 1
   overidedColor: 0
@@ -2028,7 +2028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 793bbc0f8d0e25944a36a7a7bae4f66d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ColorPalette
-  useTheme: 1
+  useTheme: 0
   currentColorType: 4
   alpha: 1
   overidedColor: 0

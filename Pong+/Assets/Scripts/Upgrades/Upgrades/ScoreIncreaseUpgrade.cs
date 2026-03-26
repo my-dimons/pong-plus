@@ -13,6 +13,9 @@ public class ScoreIncreaseUpgrade : Upgrade {
   }
 
   public override bool AbleToApplyUpgrade(PaddleManager.PaddleSides side) {
+    if (GameManager.Instance.spawnScoreUpgrades)
+      return false;
+
     return true;
   }
 }
