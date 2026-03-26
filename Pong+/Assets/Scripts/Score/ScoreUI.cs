@@ -17,7 +17,7 @@ public class ScoreUI : MonoBehaviour {
     rightScore.text = ScoreManager.GetScore(PaddleManager.PaddleSides.right);
   }
 
-  public void EnableUpdateSelectingText(PaddleManager.PaddleSides paddleSide) {
+  public void EnableSelectingText(PaddleManager.PaddleSides paddleSide) {
     if (paddleSide == PaddleManager.PaddleSides.left) {
       leftSelectingText.SetActive(true);
     } else {

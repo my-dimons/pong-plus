@@ -110,6 +110,8 @@ public class UpgradeManager : MonoBehaviour {
       Destroy(upg);
     }
 
+    ScoreManager.GetScoreUI().DisableUpgradeSelectingText();
+
     // resume game
     Debug.Log("Finished picking upgrades, resuming game");
     GameManager.Instance.pauseRound = false;

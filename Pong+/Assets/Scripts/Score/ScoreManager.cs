@@ -19,7 +19,7 @@ public static class ScoreManager {
     }
 
     // update score text
-    ScoreUI scoreUI = GameObject.FindFirstObjectByType<ScoreUI>();
+    ScoreUI scoreUI = GetScoreUI();
 
     if (scoreUI != null)
       scoreUI.UpdateScoreText();
@@ -40,5 +40,15 @@ public static class ScoreManager {
       return "";
     else
       return score.ToString();
+  }
+
+  public static ScoreUI GetScoreUI() {
+    ScoreUI scoreUI = GameObject.FindFirstObjectByType<ScoreUI>();
+    if (scoreUI != null)
+      return scoreUI;
+    else {
+      Debug.LogWarning("ScoreUI instance not found in the scene.");
+      return null;
+    }
   }
 }
