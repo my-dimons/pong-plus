@@ -1425,8 +1425,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c66aa66f86d9242b2295028ff8764a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreUI
-  leftScore: {fileID: 1637406424}
-  rightScore: {fileID: 908866646}
+  leftScore: {fileID: 908866646}
+  rightScore: {fileID: 1637406424}
   rightSelectingText: {fileID: 1205286684}
   leftSelectingText: {fileID: 1398376486}
 --- !u!1 &930846768
